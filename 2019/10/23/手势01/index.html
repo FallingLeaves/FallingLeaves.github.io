@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="手势Flutter中提供的手势检测为GestureDector。 Flutter中的手势系统分为两层，第一层是触摸原事件(指针)，有相应的四种事件类型：  PointerDownEvent：用户与屏幕接触产生了联系。 PointerMoveEvent：手指已经从屏幕上的一个位置移动到另一个位置。 PointerUpEvent：用户已停止接触屏幕。 PointerCancelEvent：此指针的输入">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手势01">
+<meta property="og:url" content="http://yoursite.com/2019/10/23/手势01/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="手势Flutter中提供的手势检测为GestureDector。 Flutter中的手势系统分为两层，第一层是触摸原事件(指针)，有相应的四种事件类型：  PointerDownEvent：用户与屏幕接触产生了联系。 PointerMoveEvent：手指已经从屏幕上的一个位置移动到另一个位置。 PointerUpEvent：用户已停止接触屏幕。 PointerCancelEvent：此指针的输入">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-28T12:36:35.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="手势01">
+<meta name="twitter:description" content="手势Flutter中提供的手势检测为GestureDector。 Flutter中的手势系统分为两层，第一层是触摸原事件(指针)，有相应的四种事件类型：  PointerDownEvent：用户与屏幕接触产生了联系。 PointerMoveEvent：手指已经从屏幕上的一个位置移动到另一个位置。 PointerUpEvent：用户已停止接触屏幕。 PointerCancelEvent：此指针的输入">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/23/手势01/"/>
+
+
+
+
+
+  <title>手势01 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/23/手势01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">手势01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-23T20:38:20+08:00">
+                2019-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="手势"><a href="#手势" class="headerlink" title="手势"></a>手势</h2><p>Flutter中提供的手势检测为GestureDector。</p>
+<p>Flutter中的手势系统分为两层，第一层是触摸原事件(指针)，有相应的四种事件类型：</p>
+<ul>
+<li>PointerDownEvent：用户与屏幕接触产生了联系。</li>
+<li>PointerMoveEvent：手指已经从屏幕上的一个位置移动到另一个位置。</li>
+<li>PointerUpEvent：用户已停止接触屏幕。</li>
+<li>PointerCancelEvent：此指针的输入不再指向此应用程序。</li>
+</ul>
+<p>第二层就是我们可以检测到的手势，主要分为三大类，包括轻击、拖动和缩放。</p>
+<ul>
+<li>用GestureDetector进行手势检测</li>
+<li>用Dismissible实现滑动删除</li>
+</ul>
+<h3 id="用GestureDetector进行手势检测"><a href="#用GestureDetector进行手势检测" class="headerlink" title="用GestureDetector进行手势检测"></a>用GestureDetector进行手势检测</h3><p>GestureDetector可以进行手势检测，比如点击一次、双击、长按、垂直拖动以及水平拖动等。</p>
+<h3 id="GestureDetector事件描述"><a href="#GestureDetector事件描述" class="headerlink" title="GestureDetector事件描述"></a>GestureDetector事件描述</h3><table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onTapDown</td>
+<td>点击屏幕立即出发此事件</td>
+</tr>
+<tr>
+<td>onTapUp</td>
+<td>手指离开屏幕</td>
+</tr>
+<tr>
+<td>onTap</td>
+<td>点击屏幕</td>
+</tr>
+<tr>
+<td>onTapCancel</td>
+<td>此次点击事件结束，onTapDown不会在产生点击事件</td>
+</tr>
+<tr>
+<td>onDoubleTap</td>
+<td>用户快速连续在同一位置点击屏幕</td>
+</tr>
+<tr>
+<td>onLongPress</td>
+<td>长时间保持与相同位置的屏幕接触</td>
+</tr>
+<tr>
+<td>onVerticalDragStart</td>
+<td>与屏幕接触，可能会开始垂直移动</td>
+</tr>
+<tr>
+<td>onVerticalDragUpdate</td>
+<td>与屏幕接触并垂直移动的指针在垂直方向上移动</td>
+</tr>
+<tr>
+<td>onVerticalDragEnd</td>
+<td>之前与屏幕接触并垂直移动的指针不再与屏幕接触，并且在停止接触屏幕时以特定速度移动垂直拖动</td>
+</tr>
+<tr>
+<td>onHorizontalDragStart</td>
+<td>与屏幕接触，可能开始水平移动</td>
+</tr>
+<tr>
+<td>onHorizontalDragUpdate</td>
+<td>与屏幕接触并水平移动的指针在水平方向上移动</td>
+</tr>
+<tr>
+<td>onHorizontalDragEnd</td>
+<td>先前与屏幕接触并且水平移动的指针不再与屏幕接触，并且当它停止接触屏幕时以特定速度移动水平拖动</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyButton</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="comment">// 一定要把被触摸的组件放在GestureDector里面</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> GestureDetector(</span><br><span class="line">      onTap: () &#123;</span><br><span class="line">        <span class="comment">// 底部消息提示</span></span><br><span class="line">        <span class="keyword">final</span> snackBar = SnackBar(</span><br><span class="line">          content: Text(</span><br><span class="line">            <span class="string">'你已按下'</span>,</span><br><span class="line">          ),</span><br><span class="line">        );</span><br><span class="line">        Scaffold.of(context).showSnackBar(snackBar);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 添加容器接收触摸动作</span></span><br><span class="line">      child: Container(</span><br><span class="line">        padding: <span class="keyword">const</span> EdgeInsets.all(<span class="number">12.0</span>),</span><br><span class="line">        decoration: BoxDecoration(</span><br><span class="line">          color: Theme.of(context).buttonColor,</span><br><span class="line">          borderRadius: BorderRadius.circular(<span class="number">10.0</span>),</span><br><span class="line">        ),</span><br><span class="line">        child: Text(</span><br><span class="line">          <span class="string">'测试按钮'</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GestureDectorDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(</span><br><span class="line">          <span class="string">'按下处理demo'</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: MyButton(),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="用Dismissible实现滑动删除"><a href="#用Dismissible实现滑动删除" class="headerlink" title="用Dismissible实现滑动删除"></a>用Dismissible实现滑动删除</h3><p>滑动删除模式在很多移动应用中很常见。flutter通过提供Dismissible组件使这项任务变得简单。</p>
+<h3 id="Dismissible组件属性及描述"><a href="#Dismissible组件属性及描述" class="headerlink" title="Dismissible组件属性及描述"></a>Dismissible组件属性及描述</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onDismissed</td>
+<td>DismissDirectionCallback</td>
+<td>当包裹的组件消失后回调的函数</td>
+</tr>
+<tr>
+<td>movementDuration</td>
+<td>Duration</td>
+<td>定义组件消失的时长</td>
+</tr>
+<tr>
+<td>onResize</td>
+<td>VoidCallback</td>
+<td>组件大小改变时回调的函数</td>
+</tr>
+<tr>
+<td>resizeDuration</td>
+<td>Duration</td>
+<td>组件大小改变的时长</td>
+</tr>
+<tr>
+<td>child</td>
+<td>Widget</td>
+<td>组件包裹的子元素，即被隐藏的对象</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DismissibleDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 列表数据</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; items = <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;.generate(<span class="number">30</span>, (i) =&gt; <span class="string">'列表项 <span class="subst">$&#123;i + <span class="number">1</span>&#125;</span>'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(</span><br><span class="line">          <span class="string">'滑动删除demo'</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// 构建列表</span></span><br><span class="line">      body: ListView.builder(</span><br><span class="line">        itemCount: items.length,</span><br><span class="line">        itemBuilder: (context, index) &#123;</span><br><span class="line">          <span class="comment">// 提取被删除项</span></span><br><span class="line">          <span class="keyword">final</span> item = items[index];</span><br><span class="line">          <span class="comment">// 返回一个可以被删除的列表项</span></span><br><span class="line">          <span class="keyword">return</span> Dismissible(</span><br><span class="line">            key: Key(item),</span><br><span class="line">            onDismissed: (direction) &#123;</span><br><span class="line">              <span class="comment">// 移除指定索引项</span></span><br><span class="line">              items.removeAt(index);</span><br><span class="line">              <span class="comment">// 底部弹出消息提示当前项被删除了</span></span><br><span class="line">              Scaffold.of(context).showSnackBar(</span><br><span class="line">                SnackBar(</span><br><span class="line">                  content: Text(</span><br><span class="line">                    <span class="string">'$item 被删除了'</span>,</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">              );</span><br><span class="line">            &#125;,</span><br><span class="line">            child: ListTile(</span><br><span class="line">              title: Text(</span><br><span class="line">                <span class="string">'$item'</span>,</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">          );</span><br><span class="line">        &#125;,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/页面布局04/" rel="next" title="页面布局04">
+                <i class="fa fa-chevron-left"></i> 页面布局04
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/09/18/vue浅析06/" rel="prev" title="vue浅析06">
+                vue浅析06 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="FallingLeaves" />
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#手势"><span class="nav-number">1.</span> <span class="nav-text">手势</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用GestureDetector进行手势检测"><span class="nav-number">1.1.</span> <span class="nav-text">用GestureDetector进行手势检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GestureDetector事件描述"><span class="nav-number">1.2.</span> <span class="nav-text">GestureDetector事件描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用Dismissible实现滑动删除"><span class="nav-number">1.3.</span> <span class="nav-text">用Dismissible实现滑动删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dismissible组件属性及描述"><span class="nav-number">1.4.</span> <span class="nav-text">Dismissible组件属性及描述</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

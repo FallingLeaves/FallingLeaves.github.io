@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="宽高尺寸处理SizedBox(设置具体尺寸)SizedBox组件是一个特定大小的盒子，这个组件强制他的child有特定的宽度和高度，如果宽度或高度为null，则此组件将调整自身大小以匹配该维度中child的大小。 SizedBox主要属性   属性名 类型 说明     width double 宽度值   height double 高度值    123456789101112131415161">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页面布局02">
+<meta property="og:url" content="http://yoursite.com/2019/09/17/页面布局02/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="宽高尺寸处理SizedBox(设置具体尺寸)SizedBox组件是一个特定大小的盒子，这个组件强制他的child有特定的宽度和高度，如果宽度或高度为null，则此组件将调整自身大小以匹配该维度中child的大小。 SizedBox主要属性   属性名 类型 说明     width double 宽度值   height double 高度值    123456789101112131415161">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-23T12:54:26.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="页面布局02">
+<meta name="twitter:description" content="宽高尺寸处理SizedBox(设置具体尺寸)SizedBox组件是一个特定大小的盒子，这个组件强制他的child有特定的宽度和高度，如果宽度或高度为null，则此组件将调整自身大小以匹配该维度中child的大小。 SizedBox主要属性   属性名 类型 说明     width double 宽度值   height double 高度值    123456789101112131415161">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/17/页面布局02/"/>
+
+
+
+
+
+  <title>页面布局02 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/17/页面布局02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">页面布局02</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-17T20:36:25+08:00">
+                2019-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="宽高尺寸处理"><a href="#宽高尺寸处理" class="headerlink" title="宽高尺寸处理"></a>宽高尺寸处理</h2><h3 id="SizedBox-设置具体尺寸"><a href="#SizedBox-设置具体尺寸" class="headerlink" title="SizedBox(设置具体尺寸)"></a>SizedBox(设置具体尺寸)</h3><p>SizedBox组件是一个特定大小的盒子，这个组件强制他的child有特定的宽度和高度，如果宽度或高度为null，则此组件将调整自身大小以匹配该维度中child的大小。</p>
+<h3 id="SizedBox主要属性"><a href="#SizedBox主要属性" class="headerlink" title="SizedBox主要属性"></a>SizedBox主要属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>width</td>
+<td>double</td>
+<td>宽度值</td>
+</tr>
+<tr>
+<td>height</td>
+<td>double</td>
+<td>高度值</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SizedBoxDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'SizedBox设置具体尺寸'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: SizedBox(</span><br><span class="line">        width: <span class="number">200.0</span>,</span><br><span class="line">        height: <span class="number">300.0</span>,</span><br><span class="line">        child: <span class="keyword">const</span> Card(</span><br><span class="line">          child: Text(</span><br><span class="line">            <span class="string">'SizedBox'</span>,</span><br><span class="line">            style: TextStyle(</span><br><span class="line">              fontSize: <span class="number">36.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ConstrainedBox-限定最大最小宽高布局"><a href="#ConstrainedBox-限定最大最小宽高布局" class="headerlink" title="ConstrainedBox(限定最大最小宽高布局)"></a>ConstrainedBox(限定最大最小宽高布局)</h3><p>ConstrainedBox的作用是限定子元素child的最大宽度、最大高度、最小宽度和最小高度。</p>
+<h3 id="ConstrainedBox主要属性"><a href="#ConstrainedBox主要属性" class="headerlink" title="ConstrainedBox主要属性"></a>ConstrainedBox主要属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>constraints</td>
+<td>BoxConstraints</td>
+<td>添加到child上的额外限制条件</td>
+</tr>
+<tr>
+<td>child</td>
+<td>Widget</td>
+<td>子元素</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConstrainedBoxDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'ConstrainedBox限定宽高'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: ConstrainedBox(</span><br><span class="line">        constraints: <span class="keyword">const</span> BoxConstraints(</span><br><span class="line">          minWidth: <span class="number">150.0</span>,</span><br><span class="line">          minHeight: <span class="number">150.0</span>,</span><br><span class="line">          maxWidth: <span class="number">220.0</span>,</span><br><span class="line">          maxHeight: <span class="number">220.0</span>,</span><br><span class="line">        ),</span><br><span class="line">        child: Container(</span><br><span class="line">          width: <span class="number">300.0</span>,</span><br><span class="line">          height: <span class="number">300.0</span>,</span><br><span class="line">          color: Colors.lightBlueAccent,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="LimitedBox-限定最大宽高布局"><a href="#LimitedBox-限定最大宽高布局" class="headerlink" title="LimitedBox(限定最大宽高布局)"></a>LimitedBox(限定最大宽高布局)</h3><p>LimitedBox组件是限制类型的组件，可对最大宽高进行限制，LimitedBox是将child限制在其设定的最大宽高中，但这个限定是有条件的。当LimitedBox最大宽度不受限制时，child的宽度就会受到这个最大宽度的限制，高度同理。</p>
+<h3 id="LimitedBox主要属性"><a href="#LimitedBox主要属性" class="headerlink" title="LimitedBox主要属性"></a>LimitedBox主要属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>maxWidth</td>
+<td>double</td>
+<td>限定的最大宽度，默认double.infinity</td>
+</tr>
+<tr>
+<td>maxHeight</td>
+<td>double</td>
+<td>限定的最大高度，默认double.infinity</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LimitedBoxDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'LimitedBox限定宽高布局'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Row(</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          Container(</span><br><span class="line">            color: Colors.lightBlueAccent,</span><br><span class="line">            width: <span class="number">100.0</span>,</span><br><span class="line">          ),</span><br><span class="line">          LimitedBox(</span><br><span class="line">            <span class="comment">// 设置最大宽度，限定child在此范围内</span></span><br><span class="line">            maxWidth: <span class="number">150.0</span>,</span><br><span class="line">            child: Container(</span><br><span class="line">              width: <span class="number">250.0</span>,</span><br><span class="line">              color: Colors.orangeAccent,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AspectRatio-调整宽高比"><a href="#AspectRatio-调整宽高比" class="headerlink" title="AspectRatio(调整宽高比)"></a>AspectRatio(调整宽高比)</h3><p>AspectRatio的作用是根据设置调整子元素child的宽高比。AspectRatio的布局行为分为两种情况：</p>
+<ul>
+<li>AspectRatio首先会在布局限制条件允许的范围内尽可能的扩展，Widget的高度是由宽度和比率决定的，按照固定比率去尽量占满区域。</li>
+<li>如果在满足所有限制条件后无法找到可行的尺寸，AspectRatio最终将会优先适应布局限制条件，而忽略设置的比率。</li>
+</ul>
+<h3 id="AspectRatio主要属性"><a href="#AspectRatio主要属性" class="headerlink" title="AspectRatio主要属性"></a>AspectRatio主要属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AspectRatio</td>
+<td>double</td>
+<td>宽高比，最终可能不会根据这个值去布局，具体看综合因素，外层是否允许按照这种比率进行布局，只是一个参考值。</td>
+</tr>
+<tr>
+<td>child</td>
+<td>Widget</td>
+<td>子元素</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AspectRatioDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'AspectRatio调整宽高比'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Container(</span><br><span class="line">        height: <span class="number">200.0</span>,</span><br><span class="line">        child: AspectRatio(</span><br><span class="line">          <span class="comment">// 设置宽高比</span></span><br><span class="line">          aspectRatio: <span class="number">1.5</span>,</span><br><span class="line">          child: Container(</span><br><span class="line">            color: Colors.green,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="FractionallySizedBox-百分比布局"><a href="#FractionallySizedBox-百分比布局" class="headerlink" title="FractionallySizedBox(百分比布局)"></a>FractionallySizedBox(百分比布局)</h3><p>FractionallySizedBox组件会根据现有空间来调整child的尺寸，所以就算为child设置了具体的尺寸，也不起作用。</p>
+<p>FractionallySizedBox的布局主要跟他的宽高因子(两个参数)有关，当参数为null或设置具体参数时，布局表现不一样。还有一个辅助参数alignment，作为对齐方式进行布局。具体有以下两种情况：</p>
+<ul>
+<li>设置了具体的宽高因子，具体的宽高根据现有空间宽高 * 因子，当宽高因子大于1的时候，可能会超出父组件范围</li>
+<li>没有设置宽高因子，则填满可用区域</li>
+</ul>
+<h3 id="FractionallySizedBox主要属性"><a href="#FractionallySizedBox主要属性" class="headerlink" title="FractionallySizedBox主要属性"></a>FractionallySizedBox主要属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alignment</td>
+<td>AlignmentGeometry</td>
+<td>对齐方式，不能为null</td>
+</tr>
+<tr>
+<td>widthFactor</td>
+<td>double</td>
+<td>宽度因子</td>
+</tr>
+<tr>
+<td>heightFactor</td>
+<td>double</td>
+<td>高度因子</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FractionallySizedBoxDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'FractionallySizedBox百分比布局'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Container(</span><br><span class="line">        color: Colors.blueGrey,</span><br><span class="line">        width: <span class="number">200.0</span>,</span><br><span class="line">        height: <span class="number">200.0</span>,</span><br><span class="line">        child: FractionallySizedBox(</span><br><span class="line">          alignment: Alignment.topLeft,</span><br><span class="line">          <span class="comment">// 宽度因子</span></span><br><span class="line">          widthFactor: <span class="number">0.5</span>,</span><br><span class="line">          <span class="comment">// 高度因子</span></span><br><span class="line">          heightFactor: <span class="number">1.5</span>,</span><br><span class="line">          child: Container(</span><br><span class="line">            color: Colors.greenAccent,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/05/页面布局01/" rel="next" title="页面布局01">
+                <i class="fa fa-chevron-left"></i> 页面布局01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/23/页面布局03/" rel="prev" title="页面布局03">
+                页面布局03 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="FallingLeaves" />
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#宽高尺寸处理"><span class="nav-number">1.</span> <span class="nav-text">宽高尺寸处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SizedBox-设置具体尺寸"><span class="nav-number">1.1.</span> <span class="nav-text">SizedBox(设置具体尺寸)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SizedBox主要属性"><span class="nav-number">1.2.</span> <span class="nav-text">SizedBox主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConstrainedBox-限定最大最小宽高布局"><span class="nav-number">1.3.</span> <span class="nav-text">ConstrainedBox(限定最大最小宽高布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConstrainedBox主要属性"><span class="nav-number">1.4.</span> <span class="nav-text">ConstrainedBox主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LimitedBox-限定最大宽高布局"><span class="nav-number">1.5.</span> <span class="nav-text">LimitedBox(限定最大宽高布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LimitedBox主要属性"><span class="nav-number">1.6.</span> <span class="nav-text">LimitedBox主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AspectRatio-调整宽高比"><span class="nav-number">1.7.</span> <span class="nav-text">AspectRatio(调整宽高比)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AspectRatio主要属性"><span class="nav-number">1.8.</span> <span class="nav-text">AspectRatio主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FractionallySizedBox-百分比布局"><span class="nav-number">1.9.</span> <span class="nav-text">FractionallySizedBox(百分比布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FractionallySizedBox主要属性"><span class="nav-number">1.10.</span> <span class="nav-text">FractionallySizedBox主要属性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

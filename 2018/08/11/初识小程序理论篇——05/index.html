@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小程序," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="初识小程序位置 wx.stopLocationUpdate(Object object) 基础库 2.8.0 开始支持，低版本需做兼容处理。关闭监听实时位置变化，前后台都停止消息接收。 参数   | 属性 | 类型 | 默认值 | 必填 | 说明 -|—-|—-|—–|—-|— success | function |  | 否 | 接口调用成功的回调函数 fail | function |  |">
+<meta name="keywords" content="小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识小程序理论篇——05">
+<meta property="og:url" content="http://yoursite.com/2018/08/11/初识小程序理论篇——05/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="初识小程序位置 wx.stopLocationUpdate(Object object) 基础库 2.8.0 开始支持，低版本需做兼容处理。关闭监听实时位置变化，前后台都停止消息接收。 参数   | 属性 | 类型 | 默认值 | 必填 | 说明 -|—-|—-|—–|—-|— success | function |  | 否 | 接口调用成功的回调函数 fail | function |  |">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-04T01:55:16.455Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识小程序理论篇——05">
+<meta name="twitter:description" content="初识小程序位置 wx.stopLocationUpdate(Object object) 基础库 2.8.0 开始支持，低版本需做兼容处理。关闭监听实时位置变化，前后台都停止消息接收。 参数   | 属性 | 类型 | 默认值 | 必填 | 说明 -|—-|—-|—–|—-|— success | function |  | 否 | 接口调用成功的回调函数 fail | function |  |">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/11/初识小程序理论篇——05/"/>
+
+
+
+
+
+  <title>初识小程序理论篇——05 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/11/初识小程序理论篇——05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初识小程序理论篇——05</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T09:17:23+08:00">
+                2018-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="初识小程序"><a href="#初识小程序" class="headerlink" title="初识小程序"></a>初识小程序</h2><h3 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h3><ol>
+<li><p>wx.stopLocationUpdate(Object object)</p>
+<p>基础库 2.8.0 开始支持，低版本需做兼容处理。关闭监听实时位置变化，前后台都停止消息接收。</p>
+<p>参数 </p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>wx.startLocationUpdateBackground(Object object)</p>
+<p>基础库 2.8.0 开始支持，低版本需做兼容处理。调用前需要 用户授权 scope.userLocationBackground。开启小程序进入后台时接收位置消息，需引导用户开启授权。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> | success | function |  | 否 | 接口调用成功的回调函数<br> | fail | function |  | 否 | 接口调用失败的回调函数<br> | complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p> <strong>注意</strong></p>
+<ol>
+<li>需在app.json中配置requireBackgroundModes: [‘location’]后使用</li>
+<li>获取位置信息需配置地理位置用途说明。</li>
+</ol>
+</li>
+<li><p>wx.startLocationUpdate(Object object)</p>
+<p>基础库 2.8.0 开始支持，低版本需做兼容处理。调用前需要 用户授权 scope.userLocation。开启小程序进入前台时接收位置消息。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p> <strong>注意</strong></p>
+<ol>
+<li>获取位置信息需配置地理位置用途说明。</li>
+</ol>
+</li>
+<li><p>wx.openLocation(Object object)</p>
+<p>使用微信内置地图查看位置</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> latitude | number |  | 是 | 纬度，范围为-90~90，负数表示南纬。使用 gcj02 国测局坐标系<br> longitude | number |  | 是 | 经度，范围为-180~180，负数表示西经。使用 gcj02 国测局坐标系<br> scale | number | 18 | 否 | 缩放比例，范围5~18<br> name | string |  | 否 | 位置名<br> address | string |  | 否 | 地址的详细说明<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>wx.onLocationChange(function callback)</p>
+<p>基础库 2.8.0 开始支持，低版本需做兼容处理。监听实时地理位置变化事件，需结合 wx.startLocationUpdateBackground、wx.startLocationUpdate使用。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 说明 | 最低版本<br> -|—-|—-|—-|—–<br> latitude | number | 纬度，范围为 -90~90，负数表示南纬 |<br> longitude | number | 经度，范围为 -180~180，负数表示西经 |<br> speed | number | 速度，单位 m/s |<br> accuracy | number | 位置的精确度 |<br> altitude | number | 高度，单位 m | 1.2.0<br> verticalAccuracy | number | 垂直精度，单位 m（Android 无法获取，返回 0） | 1.2.0<br> horizontalAccuracy | number | 水平精度，单位 m | 1.2.0</p>
+</li>
+<li><p>wx.getLocation(Object object)</p>
+<p>调用前需要 用户授权 scope.userLocation。获取当前的地理位置、速度。当用户离开小程序后，此接口无法调用。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明 | 最低版本<br> -|—-|—-|—–|—-|—-|—–<br> type | string | wgs84 | 否 | wgs84 返回 gps 坐标，gcj02 返回可用于 wx.openLocation 的坐标 |<br> altitude | string | false | 否 | 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度 | 1.6.0<br> success | function |  | 否 | 接口调用成功的回调函数 |<br> fail | function |  | 否 | 接口调用失败的回调函数 |<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p> object.success 回调函数</p>
+<p> | 属性 | 类型 | 说明 | 最低版本<br> -|—-|—-|—-|—–<br> latitude | number | 纬度，范围为 -90~90，负数表示南纬 |<br> longitude | number | 经度，范围为 -180~180，负数表示西经 |<br> speed | number | 速度，单位 m/s |<br> accuracy | number | 位置的精确度 |<br> altitude | number | 高度，单位 m | 1.2.0<br> verticalAccuracy | number | 垂直精度，单位 m（Android 无法获取，返回 0） | 1.2.0<br> horizontalAccuracy | number | 水平精度，单位 m | 1.2.0</p>
+<p> <strong>注意</strong></p>
+<ol>
+<li>工具中定位模拟使用IP定位，可能会有一定误差。且工具目前仅支持 gcj02 坐标。</li>
+<li>使用第三方服务进行逆地址解析时，请确认第三方服务默认的坐标系，正确进行坐标转换。</li>
+</ol>
+</li>
+<li><p>wx.chooseLocation(Object object)</p>
+<p>调用前需要 用户授权 scope.userLocation。打开地图选择位置。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p> object.success 回调函数</p>
+<p> | 属性 | 类型 | 说明<br> -|—-|—-|—<br> name | string | 位置名称<br> address | string | 详细地址<br> latitude | string | 纬度，浮点数，范围为-90~90，负数表示南纬。使用 gcj02 国测局坐标系<br> longitude | string | 经度，浮点数，范围为-180~180，负数表示西经。使用 gcj02 国测局坐标系</p>
+</li>
+</ol>
+<h3 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h3><ol>
+<li><p>wx.updateShareMenu(Object object)</p>
+<p>基础库 1.2.0 开始支持，低版本需做兼容处理。更新转发属性。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明 | 最低版本<br> -|—-|—-|—–|—-|—-|—–<br> withShareTicket | boolean | false | 否 | 是否使用带 shareTicket 的转发详情 |<br> isUpdatableMessage | boolean | false | 否 | 是否是动态消息，详见动态消息 | 2.4.0<br> activityId | string |  | 否 | 动态消息的 activityId。通过 updatableMessage.createActivityId 接口获取 | 2.4.0<br> templateInfo | Object |  | 否 | 动态消息的模板信息 | 2.4.0<br> success | function |  | 否 | 接口调用成功的回调函数 |<br> fail | function |  | 否 | 接口调用失败的回调函数 |<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>wx.showShareMenu(Object object)</p>
+<p>基础库 1.1.0 开始支持，低版本需做兼容处理。显示当前页面的转发按钮。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> withShareTicket | boolean | false | 否 | 是否使用带 shareTicket 的转发详情<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>wx.hideShareMenu(Object object)</p>
+<p>基础库 1.1.0 开始支持，低版本需做兼容处理。隐藏转发按钮。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>wx.getShareInfo(Object object)</p>
+<p>基础库 1.1.0 开始支持，低版本需做兼容处理。获取转发详细信息。</p>
+<p>参数</p>
+<p> | 属性 | 类型 | 默认值 | 必填 | 说明 | 最低版本<br> -|—-|—-|—–|—-|—-|—–<br> shareTicket | string |  | 是 | shareTicket |<br> timeout | number |  | 否 | 超时时间，单位 ms | 1.9.90<br> success | function |  | 否 | 接口调用成功的回调函数 |<br> fail | function |  | 否 | 接口调用失败的回调函数 |<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p> object.success 回调函数</p>
+<p> | 属性 | 类型 | 说明 | 最低版本<br> -|—-|—-|—-|—–<br> errMsg | string | 错误信息 |<br> encryptedData | string | 包括敏感数据在内的完整转发信息的加密数据，详细见加密数据解密算法 |<br> iv | string | 加密算法的初始向量，详细见加密数据解密算法 |<br> cloudID | string | 敏感数据对应的云 ID，开通云开发的小程序才会返回，可通过云调用直接获取开放数据，详细见云调用直接获取开放数据 | 2.7.0</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小程序/" rel="tag"># 小程序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/05/初识小程序理论篇——04/" rel="next" title="初识小程序理论篇——04">
+                <i class="fa fa-chevron-left"></i> 初识小程序理论篇——04
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/14/vue浅析02/" rel="prev" title="vue浅析02">
+                vue浅析02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="FallingLeaves" />
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初识小程序"><span class="nav-number">1.</span> <span class="nav-text">初识小程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#位置"><span class="nav-number">1.1.</span> <span class="nav-text">位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转发"><span class="nav-number">1.2.</span> <span class="nav-text">转发</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

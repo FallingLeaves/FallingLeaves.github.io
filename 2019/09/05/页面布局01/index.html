@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="页面布局主要的布局及装饰组件可以分为：  基础布局处理 宽高尺寸处理 列表及表格布局 其他布局处理 布局综合  布局及装饰组件的说明   组件名称 中文名称 简单说明     Align 对齐布局 指定child的对齐方式   AspectRatio 调整宽高比 根据设置的宽高比调整child   Baseline 基准线布局 所有child底部所在的同一条水平线   Center 居中布局 ch">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页面布局01">
+<meta property="og:url" content="http://yoursite.com/2019/09/05/页面布局01/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="页面布局主要的布局及装饰组件可以分为：  基础布局处理 宽高尺寸处理 列表及表格布局 其他布局处理 布局综合  布局及装饰组件的说明   组件名称 中文名称 简单说明     Align 对齐布局 指定child的对齐方式   AspectRatio 调整宽高比 根据设置的宽高比调整child   Baseline 基准线布局 所有child底部所在的同一条水平线   Center 居中布局 ch">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-16T12:58:36.302Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="页面布局01">
+<meta name="twitter:description" content="页面布局主要的布局及装饰组件可以分为：  基础布局处理 宽高尺寸处理 列表及表格布局 其他布局处理 布局综合  布局及装饰组件的说明   组件名称 中文名称 简单说明     Align 对齐布局 指定child的对齐方式   AspectRatio 调整宽高比 根据设置的宽高比调整child   Baseline 基准线布局 所有child底部所在的同一条水平线   Center 居中布局 ch">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/05/页面布局01/"/>
+
+
+
+
+
+  <title>页面布局01 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/05/页面布局01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">页面布局01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-05T20:35:23+08:00">
+                2019-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="页面布局"><a href="#页面布局" class="headerlink" title="页面布局"></a>页面布局</h2><p>主要的布局及装饰组件可以分为：</p>
+<ul>
+<li>基础布局处理</li>
+<li>宽高尺寸处理</li>
+<li>列表及表格布局</li>
+<li>其他布局处理</li>
+<li>布局综合</li>
+</ul>
+<h3 id="布局及装饰组件的说明"><a href="#布局及装饰组件的说明" class="headerlink" title="布局及装饰组件的说明"></a>布局及装饰组件的说明</h3><table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>中文名称</th>
+<th>简单说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Align</td>
+<td>对齐布局</td>
+<td>指定child的对齐方式</td>
+</tr>
+<tr>
+<td>AspectRatio</td>
+<td>调整宽高比</td>
+<td>根据设置的宽高比调整child</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>基准线布局</td>
+<td>所有child底部所在的同一条水平线</td>
+</tr>
+<tr>
+<td>Center</td>
+<td>居中布局</td>
+<td>child处于水平和垂直方式的中间位置</td>
+</tr>
+<tr>
+<td>Column</td>
+<td>垂直布局</td>
+<td>对child在垂直方向进行排列</td>
+</tr>
+<tr>
+<td>ConstrainedBox</td>
+<td>限定宽高</td>
+<td>限定child的最大值</td>
+</tr>
+<tr>
+<td>Container</td>
+<td>容器布局</td>
+<td>容器布局是一个组合的Widget，包含定位和尺寸</td>
+</tr>
+<tr>
+<td>FittedBox</td>
+<td>缩放布局</td>
+<td>缩放以及位置调整</td>
+</tr>
+<tr>
+<td>FractionallySizeBox</td>
+<td>百分比布局</td>
+<td>根据现有空间按照百分比调整child的尺寸</td>
+</tr>
+<tr>
+<td>GridView</td>
+<td>网格布局</td>
+<td>对多行多列同时进行操作</td>
+</tr>
+<tr>
+<td>IndexedStack</td>
+<td>栈索引布局</td>
+<td>IndexedStack继承自Stack，显示第index个child，其他child都是不可见的</td>
+</tr>
+<tr>
+<td>LimitedBox</td>
+<td>限定宽高布局</td>
+<td>对最大宽高进行限制</td>
+</tr>
+<tr>
+<td>ListView</td>
+<td>列表布局</td>
+<td>用列表方式进行布局</td>
+</tr>
+<tr>
+<td>Offstage</td>
+<td>开关布局</td>
+<td>控制是否显示组件</td>
+</tr>
+<tr>
+<td>OverflowBox</td>
+<td>溢出父容器显示</td>
+<td>允许child超出父容器的范围显示</td>
+</tr>
+<tr>
+<td>Padding</td>
+<td>填充布局</td>
+<td>处理容器与其child之间的间距</td>
+</tr>
+<tr>
+<td>Row</td>
+<td>水平布局</td>
+<td>对child在水平方向进行排列</td>
+</tr>
+<tr>
+<td>SizedBox</td>
+<td>设置具体尺寸</td>
+<td>用一个特定大小的盒子来限定child的宽高</td>
+</tr>
+<tr>
+<td>Stack/Alignment</td>
+<td>Alignment栈布局</td>
+<td>根据Alignment组件的属性将child定位在Stack组件上</td>
+</tr>
+<tr>
+<td>Stack/Positioned</td>
+<td>Positioned栈布局</td>
+<td>根据Positioned组件的属性将child定位在Stack组件上</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>表格布局</td>
+<td>使用表格的行和列进行布局</td>
+</tr>
+<tr>
+<td>Transform</td>
+<td>矩阵转换</td>
+<td>做矩阵变换，对child做平移、旋转、缩放等操作</td>
+</tr>
+<tr>
+<td>Wrap</td>
+<td>按宽高自动换行</td>
+<td>按宽度或高度，让child自动换行布局</td>
+</tr>
+</tbody>
+</table>
+<h2 id="基础布局处理"><a href="#基础布局处理" class="headerlink" title="基础布局处理"></a>基础布局处理</h2><h3 id="Container-容器布局"><a href="#Container-容器布局" class="headerlink" title="Container(容器布局)"></a>Container(容器布局)</h3><p>Container(容器布局)在Flutter里大量使用，是一个组合Widget，内部有绘制Widget、定位Widget和尺寸Widget。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ContainerDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">// 返回一个Container对象</span></span><br><span class="line">    Widget container = Container(</span><br><span class="line">      <span class="comment">// 添加装饰效果</span></span><br><span class="line">      decoration: BoxDecoration(</span><br><span class="line">        color: Colors.grey,</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// 子元素指定为一个垂直水平嵌套布局的组件</span></span><br><span class="line">      child: Column(</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          Row(</span><br><span class="line">            children: &lt;Widget&gt;[</span><br><span class="line">              <span class="comment">// 使用Expanded防止内容溢出</span></span><br><span class="line">              Expanded(</span><br><span class="line">                child: Container(</span><br><span class="line">                  width: <span class="number">150.0</span>,</span><br><span class="line">                  height: <span class="number">150.0</span>,</span><br><span class="line">                  <span class="comment">// 添加边框样式</span></span><br><span class="line">                  decoration: BoxDecoration(</span><br><span class="line">                    <span class="comment">// 边框宽10.0</span></span><br><span class="line">                    border: Border.all(</span><br><span class="line">                      width: <span class="number">10.0</span>,</span><br><span class="line">                      color: Colors.lightBlue,</span><br><span class="line">                    ),</span><br><span class="line">                    <span class="comment">// 边框圆角8.0</span></span><br><span class="line">                    borderRadius:</span><br><span class="line">                        <span class="keyword">const</span> BorderRadius.all(<span class="keyword">const</span> Radius.circular(<span class="number">8.0</span>)),</span><br><span class="line">                  ),</span><br><span class="line">                  <span class="comment">// 上下左右增加边距</span></span><br><span class="line">                  margin: <span class="keyword">const</span> EdgeInsets.all(<span class="number">4.0</span>),</span><br><span class="line">                  <span class="comment">// 添加图片</span></span><br><span class="line">                  child: Image.asset(</span><br><span class="line">                    <span class="string">'images/0dd7912397dda144842d6d91bdb7d0a20cf486e8.jpg'</span>,</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">              Expanded(),</span><br><span class="line">          ),</span><br><span class="line">          Row(</span><br><span class="line">            children: &lt;Widget&gt;[],</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Container组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: container,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Center-居中布局"><a href="#Center-居中布局" class="headerlink" title="Center(居中布局)"></a>Center(居中布局)</h3><p>在Center居中布局中，子元素处于水平垂直方向的中间位置。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CenterDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Center组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: Text(</span><br><span class="line">          <span class="string">'hello world'</span>,</span><br><span class="line">          style: TextStyle(</span><br><span class="line">            fontSize: <span class="number">24.0</span>,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Padding-填充布局"><a href="#Padding-填充布局" class="headerlink" title="Padding(填充布局)"></a>Padding(填充布局)</h3><p>Padding即为填充组件，用于处理容器与其子元素之间的间距，与padding属性对应的是margin属性，margin处理容器与其他组件之间的间距。</p>
+<h3 id="Padding组件常见属性"><a href="#Padding组件常见属性" class="headerlink" title="Padding组件常见属性"></a>Padding组件常见属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>padding</td>
+<td>EdgeInsetsGeometry</td>
+<td>填充值可以使用EdgeInsets方法</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PaddingDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Padding组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: Container(</span><br><span class="line">          width: <span class="number">300.0</span>,</span><br><span class="line">          height: <span class="number">300.0</span>,</span><br><span class="line">          <span class="comment">// 容器上下左右填充设置60.0</span></span><br><span class="line">          padding: EdgeInsets.all(<span class="number">60.0</span>),</span><br><span class="line">          decoration: BoxDecoration(</span><br><span class="line">            color: Colors.white,</span><br><span class="line">            border: Border.all(</span><br><span class="line">              color: Colors.green,</span><br><span class="line">              width: <span class="number">8.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          child: Container(</span><br><span class="line">            width: <span class="number">200.0</span>,</span><br><span class="line">            height: <span class="number">200.0</span>,</span><br><span class="line">            decoration: BoxDecoration(</span><br><span class="line">              color: Colors.white,</span><br><span class="line">              border: Border.all(</span><br><span class="line">                color: Colors.blue,</span><br><span class="line">                width: <span class="number">8.0</span>,</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">            child: FlutterLogo(),</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Align-对齐布局"><a href="#Align-对齐布局" class="headerlink" title="Align(对齐布局)"></a>Align(对齐布局)</h3><p>Align组件即对齐组件，能将子组件按指定方式对齐，并根据子组件的大小调整自己的大小。</p>
+<h3 id="Align组件属性"><a href="#Align组件属性" class="headerlink" title="Align组件属性"></a>Align组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bottomCenter</td>
+<td>(0.5, 1.0)</td>
+<td>底部中心</td>
+</tr>
+<tr>
+<td>bottomLeft</td>
+<td>(0.0, 1.0)</td>
+<td>左下角</td>
+</tr>
+<tr>
+<td>bottomRight</td>
+<td>(1.0, 1.0)</td>
+<td>右下角</td>
+</tr>
+<tr>
+<td>center</td>
+<td>(0.5, 0.5)</td>
+<td>水平垂直居中</td>
+</tr>
+<tr>
+<td>centerLeft</td>
+<td>(0.0, 0.5)</td>
+<td>左边缘中心</td>
+</tr>
+<tr>
+<td>centerRight</td>
+<td>(1.0, 0.5)</td>
+<td>右边缘中心</td>
+</tr>
+<tr>
+<td>topCenter</td>
+<td>(0.5, 0.0)</td>
+<td>顶部中心</td>
+</tr>
+<tr>
+<td>topLeft</td>
+<td>(0.0, 0.0)</td>
+<td>左上角</td>
+</tr>
+<tr>
+<td>topRight</td>
+<td>(1.0, 0.0)</td>
+<td>右上角</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AlignDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Align组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Stack(</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          <span class="comment">// 左上角</span></span><br><span class="line">          Align(</span><br><span class="line">            alignment: FractionalOffset(<span class="number">0.0</span>, <span class="number">0.0</span>),</span><br><span class="line">            child: Image.asset(</span><br><span class="line">              <span class="string">'images/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg'</span>,</span><br><span class="line">              width: <span class="number">100.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          <span class="comment">// 右上角</span></span><br><span class="line">          Align(</span><br><span class="line">            alignment: FractionalOffset(<span class="number">1.0</span>, <span class="number">0.0</span>),</span><br><span class="line">            child: Image.asset(</span><br><span class="line">              <span class="string">'images/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg'</span>,</span><br><span class="line">              width: <span class="number">100.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          <span class="comment">// 水平垂直居中</span></span><br><span class="line">          Align(</span><br><span class="line">            alignment: FractionalOffset(<span class="number">0.5</span>, <span class="number">0.5</span>),</span><br><span class="line">            child: Image.asset(</span><br><span class="line">              <span class="string">'images/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg'</span>,</span><br><span class="line">              width: <span class="number">100.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          <span class="comment">// 左下角</span></span><br><span class="line">          Align(</span><br><span class="line">            alignment: FractionalOffset.bottomLeft,</span><br><span class="line">            child: Image.asset(</span><br><span class="line">              <span class="string">'images/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg'</span>,</span><br><span class="line">              width: <span class="number">100.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          <span class="comment">// 右下角</span></span><br><span class="line">          Align(</span><br><span class="line">            alignment: FractionalOffset.bottomRight,</span><br><span class="line">            child: Image.asset(</span><br><span class="line">              <span class="string">'images/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg'</span>,</span><br><span class="line">              width: <span class="number">100.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Row-水平布局"><a href="#Row-水平布局" class="headerlink" title="Row(水平布局)"></a>Row(水平布局)</h3><p>主要用来完成子组件在水平方向的排列。</p>
+<h3 id="Row组件常见属性"><a href="#Row组件常见属性" class="headerlink" title="Row组件常见属性"></a>Row组件常见属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mainAxisAlignment</td>
+<td>MainAxisAlignment</td>
+<td>主轴的排列方式</td>
+</tr>
+<tr>
+<td>crossAxisAlignment</td>
+<td>CrossAxisAlignment</td>
+<td>次轴的排列方式</td>
+</tr>
+<tr>
+<td>mainAxisSize</td>
+<td>MainAxisSize</td>
+<td>主轴应该占据多少空间。取值max为最大，min为最小</td>
+</tr>
+<tr>
+<td>children</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>组件子元素，本质是一个List列表</td>
+</tr>
+</tbody>
+</table>
+<p>对Row来说，水平方向是主轴，垂直方向是次轴，可以参考Web中的Flex布局。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RowDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Row组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Row(</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          Expanded(</span><br><span class="line">            child: Text(</span><br><span class="line">              <span class="string">'左侧文本'</span>,</span><br><span class="line">              textAlign: TextAlign.center,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          Expanded(</span><br><span class="line">            child: Text(</span><br><span class="line">              <span class="string">'中间文本'</span>,</span><br><span class="line">              textAlign: TextAlign.center,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          Expanded(</span><br><span class="line">            child: FittedBox(</span><br><span class="line">              fit: BoxFit.contain,</span><br><span class="line">              child: <span class="keyword">const</span> FlutterLogo(),</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Column-垂直布局"><a href="#Column-垂直布局" class="headerlink" title="Column(垂直布局)"></a>Column(垂直布局)</h3><p>主要使用Column组件来完成子组件纵向的排列。</p>
+<h3 id="Column组件常见属性"><a href="#Column组件常见属性" class="headerlink" title="Column组件常见属性"></a>Column组件常见属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mainAxisAlignment</td>
+<td>MainAxisAlignment</td>
+<td>主轴的排列方式</td>
+</tr>
+<tr>
+<td>crossAxisAlignment</td>
+<td>CrossAxisAlignment</td>
+<td>次轴的排列方式</td>
+</tr>
+<tr>
+<td>mainAxisSize</td>
+<td>MainAxisSize</td>
+<td>主轴应该占据多少空间。取值max为最大，min为最小。</td>
+</tr>
+<tr>
+<td>children</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>组件子元素</td>
+</tr>
+</tbody>
+</table>
+<p>对于Column来说，垂直方向是主轴，水平方向是次轴。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColumnDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Column组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Column(</span><br><span class="line">        <span class="comment">// 水平方向靠左对齐</span></span><br><span class="line">        crossAxisAlignment: CrossAxisAlignment.start,</span><br><span class="line">        <span class="comment">// 主轴方向最小化处理</span></span><br><span class="line">        mainAxisSize: MainAxisSize.min,</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          Text(</span><br><span class="line">            <span class="string">'flutter 是谷歌的移动UI框架'</span>,</span><br><span class="line">          ),</span><br><span class="line">          Text(</span><br><span class="line">            <span class="string">'flutter 是谷歌的移动UI框架'</span>,</span><br><span class="line">          ),</span><br><span class="line">          Text(</span><br><span class="line">            <span class="string">'flutter 是谷歌的移动UI框架'</span>,</span><br><span class="line">          ),</span><br><span class="line">          Text(</span><br><span class="line">            <span class="string">'flutter 是谷歌的移动UI框架'</span>,</span><br><span class="line">          ),</span><br><span class="line">          Text(</span><br><span class="line">            <span class="string">'flutter 是谷歌的移动UI框架'</span>,</span><br><span class="line">            style: TextStyle(</span><br><span class="line">              fontSize: <span class="number">36.0</span>,</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="FittedBox-缩放布局"><a href="#FittedBox-缩放布局" class="headerlink" title="FittedBox(缩放布局)"></a>FittedBox(缩放布局)</h3><p>FittedBox组件主要做两件事，缩放(Scale)和位置调整(Position)。</p>
+<p>FittedBox会在自己的尺寸范围内缩放并调整child位置，使child适合其尺寸。布局行为分为两种情况：</p>
+<ul>
+<li>如果外部有约束的话，按照外部约束调整自身尺寸，然后缩放调整child，按照指定的条件进行布局。</li>
+<li>如果没有外部约束条件，则跟child尺寸一样，指定的缩放以及位置属性将不起作用。</li>
+</ul>
+<h3 id="FittedBox组件重要的两个属性-fit和alignment"><a href="#FittedBox组件重要的两个属性-fit和alignment" class="headerlink" title="FittedBox组件重要的两个属性(fit和alignment)"></a>FittedBox组件重要的两个属性(fit和alignment)</h3><p>fit：缩放的方式，默认为BoxFit.contain，child在FittedBox范围内，尽可能大，但不超出其尺寸。contain是在保持child宽高比的前提下，尽可能填满。一般情况，宽度或高度到达最大值时，就会停止缩放。Fit的各个属性对应的布局：</p>
+<ul>
+<li>BoxFit.none没有任何填充模式</li>
+<li>BoxFit.fill不按宽高比填充模式，内容不会超过容器范围</li>
+<li>BoxFit.contain按宽高比等比填充模型</li>
+<li>BoxFit.cover按原始尺寸填充整个容器模式，内容可能超过容器范围</li>
+<li>BoxFit.width/BoxFit.height按宽/高填充整个容器模式</li>
+<li>BoxFit.scaleDown根据情况缩小范围</li>
+</ul>
+<p>alignment：设置对齐方式，默认属性是Alignment.center，居中显示child</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FitBoxDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'FitBox组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Container(</span><br><span class="line">        color: Colors.grey,</span><br><span class="line">        width: <span class="number">250.0</span>,</span><br><span class="line">        height: <span class="number">250.0</span>,</span><br><span class="line">        child: FittedBox(</span><br><span class="line">          fit: BoxFit.contain,</span><br><span class="line">          alignment: Alignment.bottomRight,</span><br><span class="line">          child: Container(</span><br><span class="line">            color: Colors.orangeAccent,</span><br><span class="line">            child: Text(<span class="string">'缩放布局'</span>),</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Stack-Alignment"><a href="#Stack-Alignment" class="headerlink" title="Stack/Alignment"></a>Stack/Alignment</h3><p>Stack组件的每一个子组件要么定位，要么不定位，定位的子组件是用Position组件包裹的。Stack组件本身包含索引不定位的子组件，子组件根据alignment属性定位(默认左上角)。然后根据定位的子组件的top、right、bottom和left数字将它们放置在Stack组件上。</p>
+<h3 id="Stack组件主要属性"><a href="#Stack组件主要属性" class="headerlink" title="Stack组件主要属性"></a>Stack组件主要属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alignment</td>
+<td>AlignmentGeometry</td>
+<td>Alignment.topLeft</td>
+<td>定位位置，bottomCenter底部中间，bottomLeft底部左侧，bottomRight，center，centerLeft，centerRight，topLeft，topCenter，topRight</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StackAlignmentDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Stack层叠布局'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: Stack(</span><br><span class="line">          <span class="comment">// 子组件左上角对齐</span></span><br><span class="line">          alignment: Alignment.bottomRight,</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            <span class="comment">// 底部添加一个头像</span></span><br><span class="line">            CircleAvatar(</span><br><span class="line">              backgroundImage: AssetImage(</span><br><span class="line">                  <span class="string">'images/0dd7912397dda144842d6d91bdb7d0a20cf486e8.jpg'</span>),</span><br><span class="line">              radius: <span class="number">100.0</span>,</span><br><span class="line">            ),</span><br><span class="line">            <span class="comment">// 上面加一个容器</span></span><br><span class="line">            Container(</span><br><span class="line">              decoration: BoxDecoration(</span><br><span class="line">                color: Colors.black38,</span><br><span class="line">              ),</span><br><span class="line">              child: Text(</span><br><span class="line">                <span class="string">'我是头像'</span>,</span><br><span class="line">                style: TextStyle(</span><br><span class="line">                  fontSize: <span class="number">22.0</span>,</span><br><span class="line">                  fontWeight: FontWeight.bold,</span><br><span class="line">                  color: Colors.white,</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Stack-Positioned"><a href="#Stack-Positioned" class="headerlink" title="Stack/Positioned"></a>Stack/Positioned</h3><p>Positioned组件是用来定位的。Stack使用Positioned布局主要是因为在Stack组件里面需要包裹一个定位组件。</p>
+<h3 id="Positioned组件属性"><a href="#Positioned组件属性" class="headerlink" title="Positioned组件属性"></a>Positioned组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>top</td>
+<td>double</td>
+<td>子元素相对顶部边界距离</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>double</td>
+<td>子元素相对底部边界距离</td>
+</tr>
+<tr>
+<td>left</td>
+<td>double</td>
+<td>子元素相对左侧边界距离</td>
+</tr>
+<tr>
+<td>right</td>
+<td>double</td>
+<td>子元素相对右侧边界距离</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StackPositionedDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'层叠定位布局'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: Stack(</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            <span class="comment">// 添加图片</span></span><br><span class="line">            Image.asset(</span><br><span class="line">              <span class="string">'images/0dd7912397dda144842d6d91bdb7d0a20cf486e8.jpg'</span>,</span><br><span class="line">            ),</span><br><span class="line">            <span class="comment">// 设置定位布局</span></span><br><span class="line">            Positioned(</span><br><span class="line">              top: <span class="number">20.0</span>,</span><br><span class="line">              right: <span class="number">50.0</span>,</span><br><span class="line">              child: Text(</span><br><span class="line">                <span class="string">'hello wirld'</span>,</span><br><span class="line">                style: TextStyle(</span><br><span class="line">                  fontSize: <span class="number">36.0</span>,</span><br><span class="line">                  fontWeight: FontWeight.bold,</span><br><span class="line">                  fontFamily: <span class="string">'serif'</span>,</span><br><span class="line">                  color: Colors.lightBlue,</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="IndexedStack"><a href="#IndexedStack" class="headerlink" title="IndexedStack"></a>IndexedStack</h3><p>IndexedStack继承自Stack，他的作用是显示第index个child，其他child都是不可见的，所以IndexedStack的尺寸永远是和最大的子节点尺寸一致。由于IndexedStack继承自Stack，只比Stack多了一个index属性，即对应的child的索引。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexStackDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'IndexStack布局'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: IndexedStack(</span><br><span class="line">          <span class="comment">// 设置索引为1，就只显示文本了</span></span><br><span class="line">          index: <span class="number">1</span>,</span><br><span class="line">          <span class="comment">// 子组件左上角对齐</span></span><br><span class="line">          alignment: Alignment.center,</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            <span class="comment">// 底部添加一个头像</span></span><br><span class="line">            CircleAvatar(</span><br><span class="line">              backgroundImage: AssetImage(</span><br><span class="line">                  <span class="string">'images/0dd7912397dda144842d6d91bdb7d0a20cf486e8.jpg'</span>),</span><br><span class="line">              radius: <span class="number">100.0</span>,</span><br><span class="line">            ),</span><br><span class="line">            <span class="comment">// 上面加一个容器</span></span><br><span class="line">            Container(</span><br><span class="line">              decoration: BoxDecoration(</span><br><span class="line">                color: Colors.black38,</span><br><span class="line">              ),</span><br><span class="line">              child: Text(</span><br><span class="line">                <span class="string">'我是头像'</span>,</span><br><span class="line">                style: TextStyle(</span><br><span class="line">                  fontSize: <span class="number">22.0</span>,</span><br><span class="line">                  fontWeight: FontWeight.bold,</span><br><span class="line">                  color: Colors.white,</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="OverflowBox-溢出父容器显示"><a href="#OverflowBox-溢出父容器显示" class="headerlink" title="OverflowBox(溢出父容器显示)"></a>OverflowBox(溢出父容器显示)</h3><p>通常，子组件是无法打破由父组件传递下来的约束条件，但是在子组件与父组件之间加入一个OverflowBox组件，子组件就不会以父组件为约束条件，而是以OverflowBox组件的属性为约束条件。OverflowBox组件由minWidth、minHeight、maxWidth、maxHeight四个属性给子组件划定一个矩形范围。</p>
+<h3 id="OverflowBox主要属性"><a href="#OverflowBox主要属性" class="headerlink" title="OverflowBox主要属性"></a>OverflowBox主要属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alignment</td>
+<td>AlignmentGeometry</td>
+<td>对齐方式</td>
+</tr>
+<tr>
+<td>minWidth</td>
+<td>double</td>
+<td>允许child的最小宽度</td>
+</tr>
+<tr>
+<td>maxWidth</td>
+<td>double</td>
+<td>允许child的最大宽度</td>
+</tr>
+<tr>
+<td>minHeight</td>
+<td>double</td>
+<td>允许child的最小高度</td>
+</tr>
+<tr>
+<td>maxHeight</td>
+<td>double</td>
+<td>允许child的最大高度</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/03/Cupertino风格组件/" rel="next" title="Cupertino风格组件">
+                <i class="fa fa-chevron-left"></i> Cupertino风格组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/17/页面布局02/" rel="prev" title="页面布局02">
+                页面布局02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="FallingLeaves" />
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#页面布局"><span class="nav-number">1.</span> <span class="nav-text">页面布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#布局及装饰组件的说明"><span class="nav-number">1.1.</span> <span class="nav-text">布局及装饰组件的说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础布局处理"><span class="nav-number">2.</span> <span class="nav-text">基础布局处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-容器布局"><span class="nav-number">2.1.</span> <span class="nav-text">Container(容器布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Center-居中布局"><span class="nav-number">2.2.</span> <span class="nav-text">Center(居中布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Padding-填充布局"><span class="nav-number">2.3.</span> <span class="nav-text">Padding(填充布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Padding组件常见属性"><span class="nav-number">2.4.</span> <span class="nav-text">Padding组件常见属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Align-对齐布局"><span class="nav-number">2.5.</span> <span class="nav-text">Align(对齐布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Align组件属性"><span class="nav-number">2.6.</span> <span class="nav-text">Align组件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Row-水平布局"><span class="nav-number">2.7.</span> <span class="nav-text">Row(水平布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Row组件常见属性"><span class="nav-number">2.8.</span> <span class="nav-text">Row组件常见属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Column-垂直布局"><span class="nav-number">2.9.</span> <span class="nav-text">Column(垂直布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Column组件常见属性"><span class="nav-number">2.10.</span> <span class="nav-text">Column组件常见属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FittedBox-缩放布局"><span class="nav-number">2.11.</span> <span class="nav-text">FittedBox(缩放布局)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FittedBox组件重要的两个属性-fit和alignment"><span class="nav-number">2.12.</span> <span class="nav-text">FittedBox组件重要的两个属性(fit和alignment)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack-Alignment"><span class="nav-number">2.13.</span> <span class="nav-text">Stack/Alignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack组件主要属性"><span class="nav-number">2.14.</span> <span class="nav-text">Stack组件主要属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stack-Positioned"><span class="nav-number">2.15.</span> <span class="nav-text">Stack/Positioned</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positioned组件属性"><span class="nav-number">2.16.</span> <span class="nav-text">Positioned组件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IndexedStack"><span class="nav-number">2.17.</span> <span class="nav-text">IndexedStack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OverflowBox-溢出父容器显示"><span class="nav-number">2.18.</span> <span class="nav-text">OverflowBox(溢出父容器显示)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OverflowBox主要属性"><span class="nav-number">2.19.</span> <span class="nav-text">OverflowBox主要属性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

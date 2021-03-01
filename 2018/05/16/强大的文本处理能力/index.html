@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="css," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="强大的文本处理能力demo1. font-size font-size 和 vertical-align，line-height 部分类别属性是相对于 font-size 计算的，vertical-align 的百分比是相对于 line-height 的。配合定位和 vertical-align 百分比（推荐 vertical-align 和 ex）做垂直居中  font-size 和 ex、em">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强大的文本处理能力">
+<meta property="og:url" content="http://yoursite.com/2018/05/16/强大的文本处理能力/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="强大的文本处理能力demo1. font-size font-size 和 vertical-align，line-height 部分类别属性是相对于 font-size 计算的，vertical-align 的百分比是相对于 line-height 的。配合定位和 vertical-align 百分比（推荐 vertical-align 和 ex）做垂直居中  font-size 和 ex、em">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T13:21:52.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="强大的文本处理能力">
+<meta name="twitter:description" content="强大的文本处理能力demo1. font-size font-size 和 vertical-align，line-height 部分类别属性是相对于 font-size 计算的，vertical-align 的百分比是相对于 line-height 的。配合定位和 vertical-align 百分比（推荐 vertical-align 和 ex）做垂直居中  font-size 和 ex、em">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/16/强大的文本处理能力/"/>
+
+
+
+
+
+  <title>强大的文本处理能力 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/16/强大的文本处理能力/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">强大的文本处理能力</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T20:55:16+08:00">
+                2018-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="强大的文本处理能力demo"><a href="#强大的文本处理能力demo" class="headerlink" title="强大的文本处理能力demo"></a>强大的文本处理能力<a href="https://fallingleaves.github.io/css-world/page/第八章-强大的文本处理能力.html" target="_blank" rel="noopener">demo</a></h1><h2 id="1-font-size"><a href="#1-font-size" class="headerlink" title="1. font-size"></a>1. font-size</h2><ul>
+<li><p>font-size 和 vertical-align，line-height 部分类别属性是相对于 font-size 计算的，vertical-align 的百分比是相对于 line-height 的。配合定位和 vertical-align 百分比（推荐 vertical-align 和 ex）做垂直居中</p>
+</li>
+<li><p>font-size 和 ex、em、rem<br>ex：字母 x 的高度<br>em：1em 的计算值等同当前元素的 font-size 计算值<br>rem：相对于根元素</p>
+</li>
+<li>font-size 关键字属性值<ol>
+<li>相对尺寸关键字：相对当前元素<br>larger：<code>&lt;big&gt;</code>元素的默认字体大小<br>smaller：<code>&lt;small&gt;</code>元素的默认字体大小</li>
+<li>绝对关键字<br>xx-large: <code>&lt;h1&gt;</code><br>x-large: <code>&lt;h2&gt;</code><br>large: <code>&lt;h3&gt;</code>近似<br>medium: <code>&lt;h4&gt;</code><br>small: <code>&lt;h5&gt;</code>近似<br>x-small: <code>&lt;h6&gt;</code>近似<br>xx-small: 无对应的 HTML 元素</li>
+<li>建议：<ol>
+<li>定宽的桌面端，针对 1200px，是配到 800px，可以保证至少有 1.5 倍的缩放空间</li>
+<li>在图文内容为主的重要局部区域使用可缩放的 font-size 处理，容器设置 font-size：medium</li>
+</ol>
+</li>
+<li>font-size：0，文本隐藏</li>
+</ol>
+</li>
+</ul>
+<h2 id="2-font-family"><a href="#2-font-family" class="headerlink" title="2. font-family"></a>2. font-family</h2><ul>
+<li>支持属性值：<ol>
+<li>字体名：例如 font-family：simsun</li>
+<li>字体族：<ul>
+<li>serif：衬线字体</li>
+<li>sans-serif：无衬线字体</li>
+<li>monospace：等宽字体</li>
+<li>cursive：手写字体</li>
+<li>fantasy：奇幻字体</li>
+<li>system-ui：系统 UI 字体</li>
+</ul>
+</li>
+<li>字体族最好写在字体最后面，ch：css3 单位，1ch = 0 字符的宽度</li>
+</ol>
+</li>
+</ul>
+<h2 id="3-font-weight-字体粗细程度"><a href="#3-font-weight-字体粗细程度" class="headerlink" title="3. font-weight 字体粗细程度"></a>3. font-weight 字体粗细程度</h2><ul>
+<li>常用的：normal bold</li>
+<li>相对于父级：lighter bolder</li>
+<li>精细：100~900 的百位整数，设置 700 才会有变化，好像 css 无效，是因为电脑系统中缺乏对应粗细的字体</li>
+</ul>
+<h2 id="4-font-style-字体斜或正"><a href="#4-font-style-字体斜或正" class="headerlink" title="4. font-style 字体斜或正"></a>4. font-style 字体斜或正</h2><ul>
+<li>normal：正常</li>
+<li>italic：当前字体的斜体字，若没有对应的斜体字，解析为 oblique</li>
+<li>oblique：文字倾斜</li>
+</ul>
+<h2 id="5-font"><a href="#5-font" class="headerlink" title="5. font"></a>5. font</h2><ul>
+<li>缩写：[[ font-style || font-variant || font-weight ]? font-size [ / line-height ]?font-family ]</li>
+<li>缩写会破坏部分属性的继承性</li>
+<li>font 的关键字<br>font:caption | icon | menu | message-box | small-caption | status-bar</li>
+<li>让系统使用各自默认的字体<blockquote>
+<p>html { font: menu || small-caption || status-bar }<br>body { font-size: 16px}</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="6-font-face-规则"><a href="#6-font-face-规则" class="headerlink" title="6. @font face 规则"></a>6. @font face 规则</h2><ul>
+<li><p>常用</p>
+<blockquote>
+<p>@font-face {</p>
+</blockquote>
+<pre><code>font-family: &apos;example&apos;;  
+src: url(example.ttf);  
+font-style: normal; //多余  
+font-weight: normal; //多余  
+unicode-range: U+0025-00FF;  
+font-variant: small-caps; //暂不管 小写转大写  
+font-stretch: expanded;    //暂不管 css3
+font-feature-settings：&quot;liga1&quot; on; //暂不管 css3
+</code></pre><p>}</p>
+</li>
+<li><p>font-family：可以看成字体变量，可随意命名，如果有空格或特殊字符最好加引号，不建议使用系统同名的字体名称</p>
+</li>
+<li>src<ol>
+<li>引入字体资源，local()引用系统字体，ie9 及以上支持，url()引用外部字体</li>
+<li>常见写法<blockquote>
+<p>src: url(‘icon.eot’) format(‘eot’);<br> src: url(‘icon.eot?#iefix’) format(‘embedded-opentype’),<br>url(‘icon.woff2’) format(“woff2”),<br>url(‘icon.woff’) format(“woff”),<br>url(‘icon.ttf’) format(“typetrue”),<br>url(‘icon.svg#icon’) format(‘svg’);</p>
+<ul>
+<li>svg 文件是为兼容 iOS4.1 以前版本</li>
+<li>eot 文件是 IE 私有，所有 IE 都支持，ie6~8 只支持 eot 文件字体</li>
+<li>woff 文件专门为 web 开发设计的字体格式，Android4.4 以后全支持，ie9 开始支持</li>
+<li>woff2 文件比 woff 更小的字体格式，仅 Chrome 和 Firefox 支持较好</li>
+<li>ttf 文件系统字体使用较多，web 可使用，老版 Android 也支持</li>
+<li>?#iefix 的作用：ie9 以前，src 中包含多个 url 时，会当做一个字符解析而返回 404.因此在后面加?#iefix，ie9 以前的会把？后面的当做参数</li>
+<li>两个 src：兼容模式的 ie7/8，不认识？的解决方案，导致第二个 src 无法解析</li>
+<li>format()功能符：让浏览器提前知道字体格式，决定是否加载这个字体</li>
+</ul>
+</blockquote>
+</li>
+<li>优化<blockquote>
+<p>@font-face {</p>
+<pre><code>font-family: ICON;  
+src: url(&apos;icon.eot&apos;);  
+src: local(&apos;☺&apos;),  
+url(&apos;icon.woff2&apos;) format(&quot;woff2&quot;),  
+url(&apos;icon.woff&apos;) format(&quot;woff&quot;),  
+url(&apos;icon.ttf&apos;);  
+</code></pre><p>}</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>font-style 为解决同字体的斜体格式</li>
+<li>font-weight 定义不同字重使用不同字体</li>
+<li>unicode-range 让特定的字符或特定范围的字符使用指定的字体，ie8 不支持</li>
+<li>@font face 与字体图标（推荐 svg），本质是字符集和图形的一种映射关系</li>
+</ul>
+<h2 id="7-文本控制"><a href="#7-文本控制" class="headerlink" title="7. 文本控制"></a>7. 文本控制</h2><ol>
+<li>text-indent 与内联元素的缩进<ul>
+<li>text-indent 负值隐藏文本，不建议设置很大的负值，阅读设备不会读取屏幕外的内容，部分浏览器会影响元素的 outline 区域需配合：overflow：hidden。</li>
+<li>text-indent 百分比是相对于当前元素的包含块。</li>
+<li>text-indent 仅对第一行内联盒子内容有效。</li>
+<li>非替换元素以外的 display 计算值为 inline 的内联元素，设置 text-indent 无效，如果计算值为 inline-block 或 inline-table 则有效。因此父级块状元素设置 text-indent，子元素需重置。</li>
+<li>input 标签按钮 text-indent 无效。</li>
+<li>button 标签按钮 text-indent 有效，但存在兼容性。</li>
+<li>input 和 textarea 输入框的 text-indent 在低版本 IE 有兼容问题。</li>
+</ul>
+</li>
+<li>letter-space 与字符间距<ul>
+<li>字符包括：英文字母、汉字、空格等。</li>
+<li>继承性。</li>
+<li>默认值为 normal，虽然正常情况下，normal 的计算值为 0，有些情况下，normal 的计算值会调整适应排版。</li>
+<li>支持负值，足够大，字符会重叠，甚至反向（非 IE）。letter-spacing 负值仅能让字符重叠，但是不能让替换元素或者 inline-block/inline-table 元素发生重叠。</li>
+<li>letter-space 的值和 text-indent 一样，无论多大或多小，第一行一定会保留至少一个字符。在默认左对齐时，无论设置何值，第一个字符纹丝不动。？？？</li>
+<li>支持小数、暂不支持百分比。</li>
+</ul>
+</li>
+<li>word-space 与单词间距<ul>
+<li>继承性。</li>
+<li>默认值为 normal，通常情况表现一样。</li>
+<li>支持负值，可以让字符重叠，对于 inline-block/inline-table 元素存在差异，不适用 word-space 清除间隙。</li>
+<li>支持小数、百分比。</li>
+<li>间隔算法受到 text-align：justify 影响。</li>
+<li>letter-space 作用所有字符，word-space 作用空格字符。word-space 就是增加空格的宽度。有空格就有效，可以是 Space 键敲出来的空格（U+0020），也可以是换行符产生的空格（浏览器解析为 U+0020），还可以是 Tab 键敲出来的空格（U+0009），抑或是&npsp;非换行空格（U+00A0）。但不包括零宽空格（U+200B、U+200C、U+200D）、固宽空格（全角 U+3000、U+2003，半角 U+2000、U+2002）以及窄空格（U+2009）。</li>
+</ul>
+</li>
+<li>word-break 和 word-warp<ul>
+<li>word-break：<ul>
+<li>normal：使用默认的换行规则。</li>
+<li>break-all：允许任意非 CJK（中、日、韩）文本间的单词断行。</li>
+<li>keep-all：不允许 CJK 文本间的换行，只能在半角空格的连字符处换行。移动端暂不适合。</li>
+</ul>
+</li>
+<li>word-wrap：<ul>
+<li>ormal：使用默认的换行规则。</li>
+<li>break-word：一行单词中实在没有其他靠谱的换行点的时候换行。</li>
+<li>word-wrap 在 css3 中，改为 overflow-wrap，但仅 webkit 和 blink 浏览器支持较好。</li>
+</ul>
+</li>
+<li>word-break：break-all 是所有的都换行，一点空隙都不留。<br>word-wrap：break-word 有其他的换行点，就不会使英文断行，容易出现大片空白</li>
+</ul>
+</li>
+<li><p>white-space 与换行和空格的控制</p>
+<ul>
+<li>white-space 属性声明怎样处理元素内的空白字符，包括空格、回车、制表产生的空白字符，可以决定是否换行（回车），大片的空白区域。</li>
+<li><p>属性值：</p>
+<ul>
+<li>normal：合并空白字符和换行符</li>
+<li>pre：空白字符不合并，只有在换行符的地方换行</li>
+<li>nowrap：合并空白字符，不允许文字环绕</li>
+<li>pre-wrap：空白字符不合并，只有在换行符的地方换行，允许文字环绕 ie8 开始支持</li>
+<li>pre-line：合并空白字符，只有在换行符的地方换行，允许文字环绕 ie8 开始支持</li>
+</ul>
+</li>
+<li><p>white-space 与最大可用宽度<br>white-space：nowrap 时，元素的宽度表现为最大可用宽度，合并空格，一行显示。</p>
+</li>
+<li><p>应用</p>
+<ul>
+<li>包含块过小处理。绝对定位和 inline-block 元素具有包裹性，当文本宽度大于最大可用宽度时，会出现文本环绕现象，例如一柱擎天。</li>
+<li>单行文字溢出点点点。</li>
+<li>水平列表切换。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>text-align 与文本对齐</p>
+<ul>
+<li>text-align：justify 两端对齐，ie11 不支持让中文两端对齐，IE 私有属性 text-justify: inter-ideograph 可实现两端文字对齐</li>
+<li>在默认设置下，要实现 text-align：justify 两端对齐，需满足两点：<ol>
+<li>有分隔点，如空格</li>
+<li>超过一行，此时非最后一行两端对齐</li>
+</ol>
+</li>
+<li>解决条件 2：<ol>
+<li>借助伪类新增一行（会产生多余空白——&gt;容器设置 font-size：0，子元素重设 font-size，img 对齐方式）font-size：.1px；font-size：-webkit-calc(0px + 0px)</li>
+<li>占位符标签 （个数与列数一致即可）</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>text-decoration 文字与下划线重叠——&gt;利用 border 模拟</li>
+<li>text-transform 字符大小写</li>
+<li><p>::first-letter 伪元素</p>
+<ul>
+<li><p>起作用前提：</p>
+<ol>
+<li>元素的 display 计算值必须是 block、inline-block、list-item、table-cell 或者 table-caption，其他所有 display 计算值都没有用，包括 display:table 和 display:flex 等。</li>
+<li>不是所有的字符都能单独作为::first-letter 伪元素存在的。常见的标点符号、各类括号和引号在::first-letter 伪元素眼中全部都是“辅助类”字符，是赠品。“赠品字符”包括·@#%&amp;<em>()（）[]【】{}:：”“”;；’‘’》《,，.。？?!！…</em>、/\。正常情况下可以直接作为伪元素的字符就是数字、英文字母、中文、$、一些运算符，以及非常容易被忽视的<strong>空格</strong>等。::before 伪元素也参与::first-letter 伪元素。</li>
+</ol>
+</li>
+<li><p>::first-letter 伪元素生效部分 css 属性<br>字体、背景、margin、padding、border、color、text-decoration、text-transform 等。而 visibility:hidden 或者 display:none 隐藏::firstletter 伪元素，还是省省吧。</p>
+</li>
+<li>支持部分 display 属性值标签嵌套<br>display 值如果是 inline、block、table、table-row、table-caption、table-cell、list-item 都是可以的，但是不能是 inline-block 和 inline-table，否则::first-letter 伪元素会直接无效；而 display:flex 则改变了规则，直接选择了下一行的字符内容。</li>
+<li>颜色等权重总是多了一层（比 important 高）。</li>
+<li>应用：价格前面的货币符号。</li>
+</ul>
+</li>
+<li><p>::first-line 伪元素</p>
+<ul>
+<li>:first-line 和:first-letter 伪元素一样，只能作用在块级元素上，也就是 display 为 block、inline-block、list-item、table-cell 或者 table-caption 的元素设置:first-line 才有效，table、flex 之类都是无效的。</li>
+<li>支持部分 css 属性。</li>
+<li>支持部分 display 属性值标签嵌套。不支持 table 等，inline-block 时 Chrome 颜色断开，Firefox 和 IE 无。因此，如果想使用:first-line，首行内容不能混入 inline-block/inline-table 元素。</li>
+<li>颜色等权重总是多了一层（比 important 高）。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/12/文本的装饰与美化/" rel="next" title="文本的装饰与美化">
+                <i class="fa fa-chevron-left"></i> 文本的装饰与美化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/16/元素的显示与隐藏/" rel="prev" title="元素的显示与隐藏">
+                元素的显示与隐藏 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="FallingLeaves" />
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#强大的文本处理能力demo"><span class="nav-number">1.</span> <span class="nav-text">强大的文本处理能力demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-font-size"><span class="nav-number">1.1.</span> <span class="nav-text">1. font-size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-font-family"><span class="nav-number">1.2.</span> <span class="nav-text">2. font-family</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-font-weight-字体粗细程度"><span class="nav-number">1.3.</span> <span class="nav-text">3. font-weight 字体粗细程度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-font-style-字体斜或正"><span class="nav-number">1.4.</span> <span class="nav-text">4. font-style 字体斜或正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-font"><span class="nav-number">1.5.</span> <span class="nav-text">5. font</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-font-face-规则"><span class="nav-number">1.6.</span> <span class="nav-text">6. @font face 规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-文本控制"><span class="nav-number">1.7.</span> <span class="nav-text">7. 文本控制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>
