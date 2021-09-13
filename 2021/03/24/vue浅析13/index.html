@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="深度观测的实现123456789101112data () &amp;#123;  return &amp;#123;    a: &amp;#123;      b: 1    &amp;#125;  &amp;#125;&amp;#125;,watch: &amp;#123;  a () &amp;#123;    console.log(&apos;a 改变了&apos;)  &amp;#125;&amp;#125; 观测数据是一个对象（a）时，会读取a的值，能够触发a的get拦截器，但是">
+<meta name="description" content="响应式数据的关键在于数据的属性是访问器属性，这使得我们能够拦截对该属性的读写操作，从而有机会收集依赖并触发响应。">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue浅析13">
 <meta property="og:url" content="http://yoursite.com/2021/03/24/vue浅析13/index.html">
 <meta property="og:site_name" content="FallingLeaves的前端修炼之路">
-<meta property="og:description" content="深度观测的实现123456789101112data () &amp;#123;  return &amp;#123;    a: &amp;#123;      b: 1    &amp;#125;  &amp;#125;&amp;#125;,watch: &amp;#123;  a () &amp;#123;    console.log(&apos;a 改变了&apos;)  &amp;#125;&amp;#125; 观测数据是一个对象（a）时，会读取a的值，能够触发a的get拦截器，但是">
+<meta property="og:description" content="响应式数据的关键在于数据的属性是访问器属性，这使得我们能够拦截对该属性的读写操作，从而有机会收集依赖并触发响应。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-04-07T13:38:26.899Z">
+<meta property="og:updated_time" content="2021-09-13T13:14:17.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue浅析13">
-<meta name="twitter:description" content="深度观测的实现123456789101112data () &amp;#123;  return &amp;#123;    a: &amp;#123;      b: 1    &amp;#125;  &amp;#125;&amp;#125;,watch: &amp;#123;  a () &amp;#123;    console.log(&apos;a 改变了&apos;)  &amp;#125;&amp;#125; 观测数据是一个对象（a）时，会读取a的值，能够触发a的get拦截器，但是">
+<meta name="twitter:description" content="响应式数据的关键在于数据的属性是访问器属性，这使得我们能够拦截对该属性的读写操作，从而有机会收集依赖并触发响应。">
 
 
 
@@ -317,6 +317,10 @@
 
           
 
+          
+              <div class="post-description">
+                  响应式数据的关键在于数据的属性是访问器属性，这使得我们能够拦截对该属性的读写操作，从而有机会收集依赖并触发响应。
+              </div>
           
 
         </div>

@@ -331,13 +331,10 @@
 
       
         
-          
-          props 的初始化及实现1if (opts.props) initProps(vm, opts.props);
-只有当 opts.props 选项存在时才会调用 initProps 函数进行初始化工作。initProps 函数与其他选项的初始化函数类似，接收两个参数分别是组件实例对象 vm 和选项
-          ...
+          props 选项是经过规范化处理的，并且规范后的数据是纯对象格式。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/09/13/vue浅析14/#more" rel="contents">
+            <a class="btn" href="/2021/09/13/vue浅析14/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -584,12 +581,10 @@
 
       
         
-          
-          深度观测的实现123456789101112data () &#123;  return &#123;    a: &#123;      b: 1    &#125;  &#125;&#125;,watch: &#123;  a () &#123;    console.log('a 改变了') 
-          ...
+          响应式数据的关键在于数据的属性是访问器属性，这使得我们能够拦截对该属性的读写操作，从而有机会收集依赖并触发响应。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/24/vue浅析13/#more" rel="contents">
+            <a class="btn" href="/2021/03/24/vue浅析13/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -710,13 +705,10 @@
 
       
         
-          
-          $watch和watch选项的实现$watch 方法和 watch 选项，都是基于 Watcher 的封装。$watch 方法，它定义在 src/core/instance/state.js
-$watch 的实现12345678910111213141516171819202122232425262
-          ...
+          无论是 $watch 方法还是 watch 选项，他们的实现都是基于 Watcher 的封装。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/22/vue浅析12/#more" rel="contents">
+            <a class="btn" href="/2021/03/22/vue浅析12/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -964,13 +956,10 @@ $watch 的实现12345678910111213141516171819202122232425262
 
       
         
-          
-          初识 WatcherWatcher 类定义在 src/core/observer/watcher.js 文件中
-12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849expor
-          ...
+          通过 Watcher 类的 constructor 方法可以知道在创建 Watcher 实例时可以传递五个参数，分别是：组件实例对象 vm、要观察的表达式 expOrFn、当被观察的表达式的值变化时的回调函数 cb、一些传递给当前观察者对象的选项 options 以及一个布尔值 isRenderWatcher 用来标识该观察者实例是否是渲染函数的观察者。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/12/22/vue浅析10/#more" rel="contents">
+            <a class="btn" href="/2020/12/22/vue浅析10/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1091,13 +1080,10 @@ $watch 的实现12345678910111213141516171819202122232425262
 
       
         
-          
-          渲染函数的观察者与进阶的数据响应系统$mount挂载函数在src/core/instance/init.js中的Vue.prototype._init函数中
-1234567891011121314151617181920Vue.prototype._init = function (options?
-          ...
+          由于 Watcher 对所观察字段的求值才触发了字段的 get，从而才有了收集到该观察者的机会。数据响应系统本身的切入点就是 initState 函数，而 initState 函数的调用就在 _init 函数中。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/11/17/vue浅析09/#more" rel="contents">
+            <a class="btn" href="/2020/11/17/vue浅析09/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1218,13 +1204,10 @@ $watch 的实现12345678910111213141516171819202122232425262
 
       
         
-          
-          Vue.set($set)和Vue.delete($delete)的实现$set和$delete定义在 src/core/instance/state.js 文件的 stateMixin函数中
-1234567891011121314export function stateMixin (Vue: C
-          ...
+          Vue 是没有能力拦截到为一个对象(或数组)添加属性(或元素)的，而 Vue.set 和 Vue.delete 就是为了解决这个问题而诞生的。同时为了方便使用， Vue 还在实例对象上定义了 $set 和 $delete 方法，实际上 $set 和 $delete 方法仅仅是 Vue.set 和 Vue.delete 的别名
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/11/10/vue浅析08/#more" rel="contents">
+            <a class="btn" href="/2020/11/10/vue浅析08/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1345,13 +1328,10 @@ $watch 的实现12345678910111213141516171819202122232425262
 
       
         
-          
-          数据响应系统在set函数中触发依赖在 core/observer/index.js中defineReactive为数据属性设置set/get访问器属性时
-123456789101112131415161718192021222324// 为属性设置新值，触发相应的依赖set: function re
-          ...
+          在 get 函数中收集了依赖之后，在 set 函数中是如何触发依赖的，即当属性被修改的时候如何触发依赖。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/10/21/vue浅析07/#more" rel="contents">
+            <a class="btn" href="/2020/10/21/vue浅析07/">
               阅读全文 &raquo;
             </a>
           </div>

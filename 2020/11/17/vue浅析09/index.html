@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="渲染函数的观察者与进阶的数据响应系统$mount挂载函数在src/core/instance/init.js中的Vue.prototype._init函数中 1234567891011121314151617181920Vue.prototype._init = function (options?: Object) &amp;#123;  // 省略...  // expose real self  v">
+<meta name="description" content="由于 Watcher 对所观察字段的求值才触发了字段的 get，从而才有了收集到该观察者的机会。数据响应系统本身的切入点就是 initState 函数，而 initState 函数的调用就在 _init 函数中。">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue浅析09">
 <meta property="og:url" content="http://yoursite.com/2020/11/17/vue浅析09/index.html">
 <meta property="og:site_name" content="FallingLeaves的前端修炼之路">
-<meta property="og:description" content="渲染函数的观察者与进阶的数据响应系统$mount挂载函数在src/core/instance/init.js中的Vue.prototype._init函数中 1234567891011121314151617181920Vue.prototype._init = function (options?: Object) &amp;#123;  // 省略...  // expose real self  v">
+<meta property="og:description" content="由于 Watcher 对所观察字段的求值才触发了字段的 get，从而才有了收集到该观察者的机会。数据响应系统本身的切入点就是 initState 函数，而 initState 函数的调用就在 _init 函数中。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-12-22T13:16:41.859Z">
+<meta property="og:updated_time" content="2021-09-13T13:22:49.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue浅析09">
-<meta name="twitter:description" content="渲染函数的观察者与进阶的数据响应系统$mount挂载函数在src/core/instance/init.js中的Vue.prototype._init函数中 1234567891011121314151617181920Vue.prototype._init = function (options?: Object) &amp;#123;  // 省略...  // expose real self  v">
+<meta name="twitter:description" content="由于 Watcher 对所观察字段的求值才触发了字段的 get，从而才有了收集到该观察者的机会。数据响应系统本身的切入点就是 initState 函数，而 initState 函数的调用就在 _init 函数中。">
 
 
 
@@ -317,6 +317,10 @@
 
           
 
+          
+              <div class="post-description">
+                  由于 Watcher 对所观察字段的求值才触发了字段的 get，从而才有了收集到该观察者的机会。数据响应系统本身的切入点就是 initState 函数，而 initState 函数的调用就在 _init 函数中。
+              </div>
           
 
         </div>

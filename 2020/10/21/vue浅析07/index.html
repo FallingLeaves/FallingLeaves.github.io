@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="数据响应系统在set函数中触发依赖在 core/observer/index.js中defineReactive为数据属性设置set/get访问器属性时 123456789101112131415161718192021222324// 为属性设置新值，触发相应的依赖set: function reactiveSetter (newVal) &amp;#123;  // 获取原有值  const valu">
+<meta name="description" content="在 get 函数中收集了依赖之后，在 set 函数中是如何触发依赖的，即当属性被修改的时候如何触发依赖。">
 <meta name="keywords" content="Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue浅析07">
 <meta property="og:url" content="http://yoursite.com/2020/10/21/vue浅析07/index.html">
 <meta property="og:site_name" content="FallingLeaves的前端修炼之路">
-<meta property="og:description" content="数据响应系统在set函数中触发依赖在 core/observer/index.js中defineReactive为数据属性设置set/get访问器属性时 123456789101112131415161718192021222324// 为属性设置新值，触发相应的依赖set: function reactiveSetter (newVal) &amp;#123;  // 获取原有值  const valu">
+<meta property="og:description" content="在 get 函数中收集了依赖之后，在 set 函数中是如何触发依赖的，即当属性被修改的时候如何触发依赖。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-03T13:34:43.427Z">
+<meta property="og:updated_time" content="2021-09-13T13:25:31.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue浅析07">
-<meta name="twitter:description" content="数据响应系统在set函数中触发依赖在 core/observer/index.js中defineReactive为数据属性设置set/get访问器属性时 123456789101112131415161718192021222324// 为属性设置新值，触发相应的依赖set: function reactiveSetter (newVal) &amp;#123;  // 获取原有值  const valu">
+<meta name="twitter:description" content="在 get 函数中收集了依赖之后，在 set 函数中是如何触发依赖的，即当属性被修改的时候如何触发依赖。">
 
 
 
@@ -317,6 +317,10 @@
 
           
 
+          
+              <div class="post-description">
+                  在 get 函数中收集了依赖之后，在 set 函数中是如何触发依赖的，即当属性被修改的时候如何触发依赖。
+              </div>
           
 
         </div>
