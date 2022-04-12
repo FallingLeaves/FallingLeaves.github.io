@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="rxjs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="30 天精通 rxjs  异步常见问题 竞态问题（Race Condition）对同一个资源同时做多次的异步存取，就可能发生。比如发送请求获取数据，又立即发送请求获取数据，第一个请求和第二个请求先后顺序会影响 内存泄露（Memory Leak）SPA 项目，事件的监听和移除 复杂的状态（Complex State） 例外处理（Exception Handling）  各种异步# API DOM">
+<meta name="keywords" content="rxjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rxjs-01">
+<meta property="og:url" content="http://yoursite.com/2022/04/12/rxjs-01/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="30 天精通 rxjs  异步常见问题 竞态问题（Race Condition）对同一个资源同时做多次的异步存取，就可能发生。比如发送请求获取数据，又立即发送请求获取数据，第一个请求和第二个请求先后顺序会影响 内存泄露（Memory Leak）SPA 项目，事件的监听和移除 复杂的状态（Complex State） 例外处理（Exception Handling）  各种异步# API DOM">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-04-12T02:21:55.122Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rxjs-01">
+<meta name="twitter:description" content="30 天精通 rxjs  异步常见问题 竞态问题（Race Condition）对同一个资源同时做多次的异步存取，就可能发生。比如发送请求获取数据，又立即发送请求获取数据，第一个请求和第二个请求先后顺序会影响 内存泄露（Memory Leak）SPA 项目，事件的监听和移除 复杂的状态（Complex State） 例外处理（Exception Handling）  各种异步# API DOM">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/04/12/rxjs-01/"/>
+
+
+
+
+
+  <title>rxjs-01 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/12/rxjs-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">rxjs-01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-04-12T10:16:46+08:00">
+                2022-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://blog.jerry-hong.com/series/rxjs/thirty-days-RxJS-00" target="_blank" rel="noopener">30 天精通 rxjs</a></p>
+</blockquote>
+<h2 id="异步常见问题"><a href="#异步常见问题" class="headerlink" title="异步常见问题"></a>异步常见问题</h2><ol>
+<li>竞态问题（Race Condition）<br>对同一个资源同时做多次的异步存取，就可能发生。比如发送请求获取数据，又立即发送请求获取数据，第一个请求和第二个请求先后顺序会影响</li>
+<li>内存泄露（Memory Leak）<br>SPA 项目，事件的监听和移除</li>
+<li>复杂的状态（Complex State）</li>
+<li>例外处理（Exception Handling）</li>
+</ol>
+<h2 id="各种异步-API"><a href="#各种异步-API" class="headerlink" title="各种异步# API"></a>各种异步# API</h2><ol>
+<li>DOM Events</li>
+<li>XMLHttpRequest</li>
+<li>Fetch</li>
+<li>WebSockets</li>
+<li>Server Send Events</li>
+<li>Service Worker</li>
+<li>Node Stream</li>
+<li>Timer<br>监听点击事件，点击后不再监听<br>原生 js</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> handler = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e)</span><br><span class="line">  <span class="built_in">document</span>.body.removeEventListener(<span class="string">"click"</span>, handler) <span class="comment">// 移除</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注册</span></span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">"click"</span>, handler)</span><br></pre></td></tr></table></figure>
+<p>使用 rxjs</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Rx.Observable.fromEvent(<span class="built_in">document</span>.body, <span class="string">"click"</span>) <span class="comment">// 注册</span></span><br><span class="line">  .take(<span class="number">1</span>) <span class="comment">// 只取一次</span></span><br><span class="line">  .subscribe(<span class="built_in">console</span>.log)</span><br></pre></td></tr></table></figure>
+<h2 id="RxJS-基本介绍"><a href="#RxJS-基本介绍" class="headerlink" title="RxJS 基本介绍"></a>RxJS 基本介绍</h2><p>RxJS 是一套由 Observable sequences 来组合异步行为和事件基础程序的 Library！可以把 RxJS 想成处理 异步行为的 Lodash。</p>
+<h2 id="Functional-Programming-基本观念"><a href="#Functional-Programming-基本观念" class="headerlink" title="Functional Programming 基本观念"></a>Functional Programming 基本观念</h2><h2 id="什么是-Functional-Programming-？"><a href="#什么是-Functional-Programming-？" class="headerlink" title="什么是 Functional Programming ？"></a>什么是 Functional Programming ？</h2><p>Functional Programming 是一种编程范式（programming paradigm），就像 Object-oriented Programming（OOP）一样，就是一种写程式的方法论，这些方法论告诉我们如何思考及解决问题。<br>简单说 Functional Programming 核心思想就是做运算处理，并用 function 来思考问题，例如像以下的算数表达式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span> + <span class="number">6</span> - <span class="number">1</span> * <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>可以写成</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b</span><br><span class="line"><span class="keyword">const</span> mul = <span class="function">(<span class="params">a, b</span>) =&gt;</span> a * b</span><br><span class="line"><span class="keyword">const</span> sub = <span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b</span><br><span class="line">sub(add(<span class="number">5</span>, <span class="number">6</span>), mul(<span class="number">1</span>, <span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>我们把每个运算包成一个个不同的 function，并用这些 function 组合出我们要的结果，这就是最简单的 Functional Programming。</p>
+<h2 id="Functional-Programming-基本要件"><a href="#Functional-Programming-基本要件" class="headerlink" title="Functional Programming 基本要件"></a>Functional Programming 基本要件</h2><p>跟 OOP 一样不是所有的语言都支持 FP，要能够支持 FP 的语言至少需要符合函式为一等公民的特性。</p>
+<h3 id="函数为一等公民-（First-Class）"><a href="#函数为一等公民-（First-Class）" class="headerlink" title="函数为一等公民 （First Class）"></a>函数为一等公民 （First Class）</h3><p>一等公民就是指跟其他数据型别具有同等地位，也就是说函式能够被赋值给变量，函式也能够被当作参数传入另一个函式，也可当作一个函数的回传值<br>函数能够被赋值给变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>函数能被当做参数传入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"www.google.com"</span>).then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;&#125;) <span class="comment">// 匿名 function 被传入 then()</span></span><br></pre></td></tr></table></figure>
+<p>函数能被当作回传值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="function"><span class="keyword">function</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 可以返回一個 function</span></span><br></pre></td></tr></table></figure>
+<h2 id="Functional-Programming-重要特性"><a href="#Functional-Programming-重要特性" class="headerlink" title="Functional Programming 重要特性"></a>Functional Programming 重要特性</h2><ul>
+<li><p>Expression, no Statement<br>Functional Programming 都是 表达式 （Expression） 不会是 陈述式（Statement）。 基本区分表达式与陈述式：<br>表达式 是一个运算过程，一定会有返回值，例如执行一个 function</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>陈述式 则是表现某个行为，例如一个 赋值给一个变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Pure Function<br>Pure function 是指 一个 function 给予相同的参数，永远会回传相同的返回值，并且没有任何显著的副作用（Side Effect）</p>
+<h3 id="Side-Effect"><a href="#Side-Effect" class="headerlink" title="Side Effect"></a>Side Effect</h3><p>Side Effect 是指一个 function 做了跟本身运算返回值没有关系的事，比如说修改某个全局变量，或是修改传入参数的值，甚至是执行 都算是 Side Effect。<br>Functional Programming 强调没有 Side Effect，也就是 function 要保持纯粹，只做运算并返回一个值，没有其他额外的行为。</p>
+<h3 id="Referential-transparency"><a href="#Referential-transparency" class="headerlink" title="Referential transparency"></a>Referential transparency</h3><p>前面提到的 pure function 不管外部环境如何，只要参数相同，函式执行的返回结果必定相同。 这种不依赖任何外部状态，只依赖于传入的参数的特性也称为 引用透明（Referential transparency）</p>
+</li>
+<li>利用参数保存状态</li>
+</ul>
+<h2 id="Functional-Programming-优势"><a href="#Functional-Programming-优势" class="headerlink" title="Functional Programming 优势"></a>Functional Programming 优势</h2><ul>
+<li><p>可读性高<br>当我们通过一系列的函式封装数据的操作过程，代码能变得非常的简洁且可读性极高，例如下面的例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">;[<span class="number">9</span>, <span class="number">4</span>]</span><br><span class="line">  .concat([<span class="number">8</span>, <span class="number">7</span>]) <span class="comment">// 合并</span></span><br><span class="line">  .sort() <span class="comment">// 排序</span></span><br><span class="line">  .filter(<span class="function">(<span class="params">x</span>) =&gt;</span> x &gt; <span class="number">5</span>) <span class="comment">// 过滤</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可维护性高<br>因为 Pure function 等特性，执行结果不依赖外部状态，且不会对外部环境有任何操作，使 Functional Programming 能更好的除错及撰写单元测试。</p>
+</li>
+<li>易于并行/平行处理<br>Functional Programming 易于做并行/平行（Concurrency/Parallel）处理，因为我们基本上只做运算不碰 I/O，再加上没有 Side Effect 的特性，所以较不用担心 deadlock 等问题。</li>
+</ul>
+<h2 id="什么是-Observable-？"><a href="#什么是-Observable-？" class="headerlink" title="什么是 Observable ？"></a>什么是 Observable ？</h2><p>两个设计模式（Design Pattern）， Iterator Pattern 跟 Observer Pattern。</p>
+<h2 id="Observer-Pattern"><a href="#Observer-Pattern" class="headerlink" title="Observer Pattern"></a>Observer Pattern</h2><p>最简单的例子就是 DOM 对象的事件监听</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clickHandler</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"user click!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">"click"</span>, clickHandler)</span><br></pre></td></tr></table></figure>
+<p>观察者模式，对某件事注册监听，并在事件发生时，自动执行注册的监听者（listener）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.listeners = []</span><br><span class="line">  &#125;</span><br><span class="line">  addListener(listener) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> listener === <span class="string">"function"</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.listeners.push(listener)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"listener 必須是 function"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  removeListener(listener) &#123;</span><br><span class="line">    <span class="keyword">this</span>.listeners.splice(<span class="keyword">this</span>.listeners.indexOf(listener), <span class="number">1</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  notify(message) &#123;</span><br><span class="line">    <span class="keyword">this</span>.listeners.forEach(<span class="function">(<span class="params">listener</span>) =&gt;</span> &#123;</span><br><span class="line">      listener(message)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> egghead = <span class="keyword">new</span> Producer()</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listener1</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(message + <span class="string">"from listener1"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listener2</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(message + <span class="string">"from listener2"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注册</span></span><br><span class="line">egghead.addListener(listener1)</span><br><span class="line">egghead.addListener(listener2)</span><br><span class="line"><span class="comment">// 触发执行</span></span><br><span class="line">egghead.notify(<span class="string">"A new course!!"</span>)</span><br><span class="line"><span class="comment">// 打印结果</span></span><br><span class="line"><span class="comment">// a new course!! from listener1</span></span><br><span class="line"><span class="comment">// a new course!! from listener2</span></span><br></pre></td></tr></table></figure>
+<h2 id="Iterator-Pattern"><a href="#Iterator-Pattern" class="headerlink" title="Iterator Pattern"></a>Iterator Pattern</h2><p>Iterator 是一个对象，它的就像是一个指针（pointer），指向一个数据结构并产生一个序列（sequence），这个序列会有数据结构中的所有元素（element）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">var</span> iterator = arr[<span class="built_in">Symbol</span>.iterator]()</span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: 1, done: false &#125;</span></span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: 2, done: false &#125;</span></span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: 3, done: false &#125;</span></span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
+<p>JavaScript 的 Iterator 只有一个 next 方法，这个 next 方法只会回传这两种结果：<br>在最后一个元素前： <code>{ done: false, value: elem }</code><br>在最后一个元素之后： <code>{ done: true, value: undefined }</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IteratorFromArray</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(arr) &#123;</span><br><span class="line">    <span class="keyword">this</span>._array = arr</span><br><span class="line">    <span class="keyword">this</span>._cursor = <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">  next() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._cursor &lt; <span class="keyword">this</span>._array.length</span><br><span class="line">      ? &#123; <span class="attr">value</span>: <span class="keyword">this</span>._array[<span class="keyword">this</span>._cursor++], <span class="attr">done</span>: <span class="literal">false</span> &#125;</span><br><span class="line">      : &#123; <span class="attr">done</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Iterator Pattern 虽然很单纯，但同时带来两个优势，第一渐进式获取数据的特性可以做延迟运算（Lazy evaluation）处理大数据结构，第二因为 Iterator 本身是数组，可以使用数组的运算方法 map、filter…等</p>
+<h3 id="延迟运算（Lazy-evaluation）"><a href="#延迟运算（Lazy-evaluation）" class="headerlink" title="延迟运算（Lazy evaluation）"></a>延迟运算（Lazy evaluation）</h3><p>延迟运算，或说 call-by-need，是一种运算策略（evaluation strategy），简单来说我们延迟一个表达式的运算时机直到真正需要它的值在做运算。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">getNumbers</span>(<span class="params">words</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> word <span class="keyword">of</span> words) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/^[0-9]+$/</span>.test(word)) &#123;</span><br><span class="line">      <span class="keyword">yield</span> <span class="built_in">parseInt</span>(word, <span class="number">10</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> iterator = getNumbers(<span class="string">"30 天精通 RxJS (04)"</span>)</span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: 3, done: false &#125;</span></span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: 0, done: false &#125;</span></span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: 0, done: false &#125;</span></span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: 4, done: false &#125;</span></span><br><span class="line">iterator.next()</span><br><span class="line"><span class="comment">// &#123; value: undefined, done: true &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Observable"><a href="#Observable" class="headerlink" title="Observable"></a>Observable</h2><p>Observer 和 Iterator 都是渐进式的获取数据，差别只在于 Observer 是生产者（Producer）推送数据（push），而 Iterator 是使用者（Consumer）要求数据（pull）。<br>Observable 其实就是这两个 Pattern 思想的结合，Observable 具备生产者推送数据的特性，同时能像数组，拥有序列处理数据的方法（map， filter…）！<br>更简单的来说，Observable 就像是一个数组，里面的元素会随着时间推送。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rxjs/" rel="tag"># rxjs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/15/vue-router和vuex的简单探索/" rel="next" title="vue-router和vuex的简单探索">
+                <i class="fa fa-chevron-left"></i> vue-router和vuex的简单探索
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="FallingLeaves" />
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异步常见问题"><span class="nav-number">1.</span> <span class="nav-text">异步常见问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各种异步-API"><span class="nav-number">2.</span> <span class="nav-text">各种异步# API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RxJS-基本介绍"><span class="nav-number">3.</span> <span class="nav-text">RxJS 基本介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functional-Programming-基本观念"><span class="nav-number">4.</span> <span class="nav-text">Functional Programming 基本观念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Functional-Programming-？"><span class="nav-number">5.</span> <span class="nav-text">什么是 Functional Programming ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functional-Programming-基本要件"><span class="nav-number">6.</span> <span class="nav-text">Functional Programming 基本要件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数为一等公民-（First-Class）"><span class="nav-number">6.1.</span> <span class="nav-text">函数为一等公民 （First Class）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functional-Programming-重要特性"><span class="nav-number">7.</span> <span class="nav-text">Functional Programming 重要特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Side-Effect"><span class="nav-number">7.1.</span> <span class="nav-text">Side Effect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Referential-transparency"><span class="nav-number">7.2.</span> <span class="nav-text">Referential transparency</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Functional-Programming-优势"><span class="nav-number">8.</span> <span class="nav-text">Functional Programming 优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Observable-？"><span class="nav-number">9.</span> <span class="nav-text">什么是 Observable ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observer-Pattern"><span class="nav-number">10.</span> <span class="nav-text">Observer Pattern</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator-Pattern"><span class="nav-number">11.</span> <span class="nav-text">Iterator Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#延迟运算（Lazy-evaluation）"><span class="nav-number">11.1.</span> <span class="nav-text">延迟运算（Lazy evaluation）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observable"><span class="nav-number">12.</span> <span class="nav-text">Observable</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>
