@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Cupertino风格组件Cupertino风格组件即IOS风格组件，主要有CupertinoTabBar、CupertinoPageScaffold、CupertinoTabScaffold、CupertinoTabView等。 CupertinoActivityIndicator组件CupertinoActivityIndicator组件，IOS风格的loading指示器。 Cupertino">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cupertino风格组件">
+<meta property="og:url" content="http://yoursite.com/2019/09/03/Cupertino风格组件/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="Cupertino风格组件Cupertino风格组件即IOS风格组件，主要有CupertinoTabBar、CupertinoPageScaffold、CupertinoTabScaffold、CupertinoTabView等。 CupertinoActivityIndicator组件CupertinoActivityIndicator组件，IOS风格的loading指示器。 Cupertino">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-04T13:16:53.244Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cupertino风格组件">
+<meta name="twitter:description" content="Cupertino风格组件Cupertino风格组件即IOS风格组件，主要有CupertinoTabBar、CupertinoPageScaffold、CupertinoTabScaffold、CupertinoTabView等。 CupertinoActivityIndicator组件CupertinoActivityIndicator组件，IOS风格的loading指示器。 Cupertino">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/03/Cupertino风格组件/">
+
+
+
+
+
+  <title>Cupertino风格组件 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/03/Cupertino风格组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Cupertino风格组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-03T20:55:09+08:00">
+                2019-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Cupertino风格组件"><a href="#Cupertino风格组件" class="headerlink" title="Cupertino风格组件"></a>Cupertino风格组件</h2><p>Cupertino风格组件即IOS风格组件，主要有CupertinoTabBar、CupertinoPageScaffold、CupertinoTabScaffold、CupertinoTabView等。</p>
+<h3 id="CupertinoActivityIndicator组件"><a href="#CupertinoActivityIndicator组件" class="headerlink" title="CupertinoActivityIndicator组件"></a>CupertinoActivityIndicator组件</h3><p>CupertinoActivityIndicator组件，IOS风格的loading指示器。</p>
+<h3 id="CupertinoActivityIndicator组件属性"><a href="#CupertinoActivityIndicator组件属性" class="headerlink" title="CupertinoActivityIndicator组件属性"></a>CupertinoActivityIndicator组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>radius</td>
+<td>double</td>
+<td>10.0</td>
+<td>加载图形的半径</td>
+</tr>
+<tr>
+<td>animating</td>
+<td>bool</td>
+<td>true</td>
+<td>是否播放加载动画</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用Cupertino组件需要导入Cupertino库</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/cupertino.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CupertinoActivityIndicatorDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'CupertinoActivityIndicator组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: CupertinoActivityIndicator(</span><br><span class="line">          <span class="comment">// 值越大，加载图形越大</span></span><br><span class="line">          radius: <span class="number">60.0</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CupertinoAlertDialog-对话框组件"><a href="#CupertinoAlertDialog-对话框组件" class="headerlink" title="CupertinoAlertDialog(对话框组件)"></a>CupertinoAlertDialog(对话框组件)</h3><p>CupertinoAlertDialog和Material Design风格里的AlertDialog对话框类似。共同点不仅仅有提示内容，还有一些操作按钮。内容部分可以使用SingleChildScrollView进行包裹。操作按钮建议使用CupertinoDialogAction组件。</p>
+<h3 id="CupertinoAlertDialog组件属性"><a href="#CupertinoAlertDialog组件属性" class="headerlink" title="CupertinoAlertDialog组件属性"></a>CupertinoAlertDialog组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>actions</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>对话框底部操作按钮</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Widget</td>
+<td>通常是一个文本组件</td>
+</tr>
+<tr>
+<td>content</td>
+<td>Widget</td>
+<td>内容部分</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/cupertino.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CupertinoAlertDialogDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'CupertinoAlertDialog组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: CupertinoAlertDialog(</span><br><span class="line">          <span class="comment">// 对话框标题</span></span><br><span class="line">          title: Text(<span class="string">'提示'</span>),</span><br><span class="line">          content: SingleChildScrollView(</span><br><span class="line">            <span class="comment">// 对话框内容部分</span></span><br><span class="line">            child: ListBody(</span><br><span class="line">              children: &lt;Widget&gt;[</span><br><span class="line">                Text(<span class="string">'确定要删除？'</span>),</span><br><span class="line">                Text(<span class="string">'一旦删除数据不可恢复！！'</span>),</span><br><span class="line">              ],</span><br><span class="line">            ),</span><br><span class="line">          ),</span><br><span class="line">          actions: &lt;Widget&gt;[</span><br><span class="line">            CupertinoDialogAction(</span><br><span class="line">              child: Text(<span class="string">'确定'</span>),</span><br><span class="line">              onPressed: () &#123;&#125;,</span><br><span class="line">            ),</span><br><span class="line">            CupertinoDialogAction(</span><br><span class="line">              child: Text(<span class="string">'取消'</span>),</span><br><span class="line">              onPressed: () &#123;&#125;,</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CupertinoButton-按钮组件"><a href="#CupertinoButton-按钮组件" class="headerlink" title="CupertinoButton(按钮组件)"></a>CupertinoButton(按钮组件)</h3><p>CupertinoButton展示iOS风格的按钮，可以响应按下事件，并且按下时会带有一个触摸的效果。</p>
+<h3 id="CupertinoButton组件属性"><a href="#CupertinoButton组件属性" class="headerlink" title="CupertinoButton组件属性"></a>CupertinoButton组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>color</td>
+<td>Color</td>
+<td></td>
+<td>组件的颜色</td>
+</tr>
+<tr>
+<td>disabledColor</td>
+<td>Color</td>
+<td></td>
+<td>组件禁用颜色，默认主题的禁用颜色</td>
+</tr>
+<tr>
+<td>onPressed</td>
+<td>VoidCallback</td>
+<td>null</td>
+<td>按钮按下时触发此回调</td>
+</tr>
+<tr>
+<td>child</td>
+<td>Widget</td>
+<td></td>
+<td>按钮的child通常为一个Text组件</td>
+</tr>
+<tr>
+<td>enable</td>
+<td>bool</td>
+<td>true</td>
+<td>按钮是否为禁用状态</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/cupertino.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CupertinoButtonDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'CupertinoButton组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: CupertinoButton(</span><br><span class="line">          child: Text(</span><br><span class="line">            <span class="string">'CupertinoButton'</span>,</span><br><span class="line">          ),</span><br><span class="line">          <span class="comment">// 按钮颜色</span></span><br><span class="line">          color: Colors.blue,</span><br><span class="line">          <span class="comment">// 按下事件回调</span></span><br><span class="line">          onPressed: () &#123;&#125;,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Cupertino导航组件集"><a href="#Cupertino导航组件集" class="headerlink" title="Cupertino导航组件集"></a>Cupertino导航组件集</h3><ol>
+<li><p>CupertinoTabScaffold</p>
+<p> 选项卡组件，将选项卡按钮及选项卡视图绑定在一起。其常用属性：</p>
+<p> | 属性名     | 类型                 | 说明                             |<br> | ———- | ——————– | ——————————– |<br> | tabTab     | CupertinoTabBar      | 选项卡按钮，通常由图标加文本组成 |<br> | tabBuilder | IndexedWidgetBuilder | 选项卡视图构造器                 |</p>
+</li>
+<li><p>CupertinoTabBar</p>
+<p> 选项卡按钮，通常由BottomNavigationBarItem组成包含图标加文本。常用属性：</p>
+<p> | 属性名          | 类型                            | 说明                   |<br> | ————— | ——————————- | ———————- |<br> | items           | <code>List&lt;BottomNavigationBarItem&gt;</code> | 选项卡按钮数据集合     |<br> | backgroundColor | Color                           | 选项卡按钮背景色       |<br> | activeColor     | Color                           | 选中的选项卡按钮前景色 |<br> | iconSize        | double                          | 选项卡图标大小         |</p>
+</li>
+<li><p>CupertinoTabView</p>
+<p> 选项卡视图，常用属性：</p>
+<p> | 属性名  | 类型                         | 说明             |<br> | ——- | —————————- | —————- |<br> | builder | WidgetBuilder                | 选项卡视图构造器 |<br> | routes  | <code>Map&lt;String, WidgetBuilder&gt;</code> | 选项卡视图路由   |</p>
+</li>
+<li><p>CupertinoPageScaffold</p>
+<p> 页面的基本布局结构，包含内容和导航栏。常用属性：</p>
+<p> | 属性名          | 类型                           | 说明                                 |<br> | ————— | —————————— | ———————————— |<br> | backgroundColor | Color                          | 页面背景色                           |<br> | navigationBar   | ObstructingPreferredSizeWidget | 顶部导航栏按钮，包含左中右三个子组件 |<br> | child           | Widget                         | 页面的主要内容                       |</p>
+</li>
+<li><p>CupertinoNavigationBar</p>
+<p> 导航栏结构组件，常用属性：</p>
+<p> | 属性名   | 类型   | 说明                           |<br> | ——– | —— | —————————— |<br> | middle   | Widget | 导航栏中间组件，通常为页面标题 |<br> | trailing | Widget | 导航栏右边组件，通常为菜单按钮 |<br> | leading  | Widget | 导航栏左边组件，通常为返回按钮 |</p>
+</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/cupertino.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CupertinoNavigationsDemo</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  _CupertinoNavigationsDemoState createState() =&gt;</span><br><span class="line">      _CupertinoNavigationsDemoState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_CupertinoNavigationsDemoState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">CupertinoNavigationsDemo</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">// 最外层导航选项卡</span></span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Cupertino导航组件集'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: CupertinoTabScaffold(</span><br><span class="line">        <span class="comment">// 底部选项卡</span></span><br><span class="line">        tabBar: CupertinoTabBar(</span><br><span class="line">          <span class="comment">// 选项卡背景色</span></span><br><span class="line">          backgroundColor: CupertinoColors.lightBackgroundGray,</span><br><span class="line">          items: [</span><br><span class="line">            <span class="comment">// 选项卡项</span></span><br><span class="line">            BottomNavigationBarItem(</span><br><span class="line">              icon: Icon(CupertinoIcons.home),</span><br><span class="line">              title: Text(</span><br><span class="line">                <span class="string">'主页'</span>,</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">            BottomNavigationBarItem(</span><br><span class="line">              icon: Icon(CupertinoIcons.conversation_bubble),</span><br><span class="line">              title: Text(</span><br><span class="line">                <span class="string">'聊天'</span>,</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">        tabBuilder: (context, index) &#123;</span><br><span class="line">          <span class="comment">// 选项卡绑定的视图</span></span><br><span class="line">          <span class="keyword">return</span> CupertinoTabView(</span><br><span class="line">            builder: (context) &#123;</span><br><span class="line">              <span class="keyword">switch</span> (index) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                  <span class="keyword">return</span> HomePage();</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                  <span class="keyword">return</span> ChatPage();</span><br><span class="line">                  <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                  <span class="keyword">return</span> Container();</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">          );</span><br><span class="line">        &#125;,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主页</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomePage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> CupertinoPageScaffold(</span><br><span class="line">      <span class="comment">// 基本布局结构</span></span><br><span class="line">      navigationBar: CupertinoNavigationBar(</span><br><span class="line">        <span class="comment">// 导航栏</span></span><br><span class="line">        middle: Text(</span><br><span class="line">          <span class="string">'主页'</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      child: Center(</span><br><span class="line">        child: Text(</span><br><span class="line">          <span class="string">'主页'</span>,</span><br><span class="line">          style: Theme.of(context).textTheme.button,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 聊天</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChatPage</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> CupertinoPageScaffold(</span><br><span class="line">      <span class="comment">// 基本布局结构</span></span><br><span class="line">      navigationBar: CupertinoNavigationBar(</span><br><span class="line">        <span class="comment">// 导航栏  中间标题</span></span><br><span class="line">        middle: Text(</span><br><span class="line">          <span class="string">'聊天面板'</span>,</span><br><span class="line">        ),</span><br><span class="line">        <span class="comment">// 导航栏  右侧按钮</span></span><br><span class="line">        trailing: Icon(CupertinoIcons.add),</span><br><span class="line">        <span class="comment">// 导航栏  左侧按钮</span></span><br><span class="line">        leading: Icon(CupertinoIcons.back),</span><br><span class="line">      ),</span><br><span class="line">      child: Center(</span><br><span class="line">        child: Text(</span><br><span class="line">          <span class="string">'聊天面板'</span>,</span><br><span class="line">          style: Theme.of(context).textTheme.button,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/02/Material-Design风格组件03/" rel="next" title="Material-Design风格组件03">
+                <i class="fa fa-chevron-left"></i> Material-Design风格组件03
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/05/页面布局01/" rel="prev" title="页面布局01">
+                页面布局01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="FallingLeaves">
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cupertino风格组件"><span class="nav-number">1.</span> <span class="nav-text">Cupertino风格组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CupertinoActivityIndicator组件"><span class="nav-number">1.1.</span> <span class="nav-text">CupertinoActivityIndicator组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CupertinoActivityIndicator组件属性"><span class="nav-number">1.2.</span> <span class="nav-text">CupertinoActivityIndicator组件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CupertinoAlertDialog-对话框组件"><span class="nav-number">1.3.</span> <span class="nav-text">CupertinoAlertDialog(对话框组件)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CupertinoAlertDialog组件属性"><span class="nav-number">1.4.</span> <span class="nav-text">CupertinoAlertDialog组件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CupertinoButton-按钮组件"><span class="nav-number">1.5.</span> <span class="nav-text">CupertinoButton(按钮组件)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CupertinoButton组件属性"><span class="nav-number">1.6.</span> <span class="nav-text">CupertinoButton组件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cupertino导航组件集"><span class="nav-number">1.7.</span> <span class="nav-text">Cupertino导航组件集</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

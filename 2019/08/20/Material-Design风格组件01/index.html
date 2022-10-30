@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="flutter,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Material Design风格组件-APP结构和导航组件Material Design也称为纸墨设计，是一种非常有质感的设计风格，并提供一些默认的交互动画。 Material Design风格组件说明   组件名称 中文名称 简单说明     AppBar 应用按钮组件 应用的工具按钮   AlertDialog 对话框组件 有操作按钮的对话框   BottomNavigationBar 底部">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Material Design风格组件01">
+<meta property="og:url" content="http://yoursite.com/2019/08/20/Material-Design风格组件01/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="Material Design风格组件-APP结构和导航组件Material Design也称为纸墨设计，是一种非常有质感的设计风格，并提供一些默认的交互动画。 Material Design风格组件说明   组件名称 中文名称 简单说明     AppBar 应用按钮组件 应用的工具按钮   AlertDialog 对话框组件 有操作按钮的对话框   BottomNavigationBar 底部">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-01T01:39:29.488Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Material Design风格组件01">
+<meta name="twitter:description" content="Material Design风格组件-APP结构和导航组件Material Design也称为纸墨设计，是一种非常有质感的设计风格，并提供一些默认的交互动画。 Material Design风格组件说明   组件名称 中文名称 简单说明     AppBar 应用按钮组件 应用的工具按钮   AlertDialog 对话框组件 有操作按钮的对话框   BottomNavigationBar 底部">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/20/Material-Design风格组件01/">
+
+
+
+
+
+  <title>Material Design风格组件01 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/20/Material-Design风格组件01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Material Design风格组件01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T20:18:35+08:00">
+                2019-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Material-Design风格组件-APP结构和导航组件"><a href="#Material-Design风格组件-APP结构和导航组件" class="headerlink" title="Material Design风格组件-APP结构和导航组件"></a>Material Design风格组件-APP结构和导航组件</h2><p>Material Design也称为纸墨设计，是一种非常有质感的设计风格，并提供一些默认的交互动画。</p>
+<h3 id="Material-Design风格组件说明"><a href="#Material-Design风格组件说明" class="headerlink" title="Material Design风格组件说明"></a>Material Design风格组件说明</h3><table>
+<thead>
+<tr>
+<th>组件名称</th>
+<th>中文名称</th>
+<th>简单说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AppBar</td>
+<td>应用按钮组件</td>
+<td>应用的工具按钮</td>
+</tr>
+<tr>
+<td>AlertDialog</td>
+<td>对话框组件</td>
+<td>有操作按钮的对话框</td>
+</tr>
+<tr>
+<td>BottomNavigationBar</td>
+<td>底部导航条组件</td>
+<td>底部导航条，可以在tap之间切换和浏览顶级视图</td>
+</tr>
+<tr>
+<td>Card</td>
+<td>卡片组件</td>
+<td>带有边框阴影的卡片组件</td>
+</tr>
+<tr>
+<td>Draw</td>
+<td>抽屉组件</td>
+<td>可以实现类似抽屉拉开关闭的效果</td>
+</tr>
+<tr>
+<td>FloatingActionButton</td>
+<td>浮动按钮组件</td>
+<td>应用的主要功能操作按钮</td>
+</tr>
+<tr>
+<td>FlatButton</td>
+<td>扁平按钮组件</td>
+<td>扁平化风格的按钮</td>
+</tr>
+<tr>
+<td>MaterialApp</td>
+<td>Material应用组件</td>
+<td>使用纸墨设计风格的应用</td>
+</tr>
+<tr>
+<td>PopupMenuButton</td>
+<td>弹出菜单组件</td>
+<td>弹出菜单按钮</td>
+</tr>
+<tr>
+<td>Scaffold</td>
+<td>脚手架组件</td>
+<td>实现了基本的Material Design布局</td>
+</tr>
+<tr>
+<td>SnackBar</td>
+<td>轻量提示组件</td>
+<td>一个轻量级消息提示组件，在屏幕的底部显示</td>
+</tr>
+<tr>
+<td>SimpleDialog</td>
+<td>简单对话框组件</td>
+<td>只起提示作用，没有交互</td>
+</tr>
+<tr>
+<td>TabBar</td>
+<td>水平选项卡及视图组件</td>
+<td>显示水平选项卡的Material Design组件</td>
+</tr>
+<tr>
+<td>TextField</td>
+<td>文本框组件</td>
+<td>可接受应用输入文本的组</td>
+</tr>
+</tbody>
+</table>
+<h2 id="APP结构和导航组件"><a href="#APP结构和导航组件" class="headerlink" title="APP结构和导航组件"></a>APP结构和导航组件</h2><h3 id="MaterialAPP-应用组件"><a href="#MaterialAPP-应用组件" class="headerlink" title="MaterialAPP(应用组件)"></a>MaterialAPP(应用组件)</h3><p>一个完整的Flutter项目就是从MaterialApp这个主组件开始的</p>
+<h3 id="MaterialAPP组件属性及描述"><a href="#MaterialAPP组件属性及描述" class="headerlink" title="MaterialAPP组件属性及描述"></a>MaterialAPP组件属性及描述</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>应用程序的标题。该标题出现在：1. Android任务管理器的程序快照上。2. IOS程序切换管理器中。</td>
+</tr>
+<tr>
+<td>theme</td>
+<td>ThemeData</td>
+<td>定义应用使用的主题色，可以指定一个主题中每个控件的颜色</td>
+</tr>
+<tr>
+<td>color</td>
+<td>Color</td>
+<td>应用的主要颜色，即primary color</td>
+</tr>
+<tr>
+<td>home</td>
+<td>Widget</td>
+<td>定义打开应用时，所显示的界面</td>
+</tr>
+<tr>
+<td>routes</td>
+<td>Map&lt;String, WidgetBuilder&gt;</td>
+<td>定义应用中页面跳转规则</td>
+</tr>
+<tr>
+<td>initialRoute</td>
+<td>String</td>
+<td>初始化路由</td>
+</tr>
+<tr>
+<td>onGenerateRoute</td>
+<td>RouteFactory</td>
+<td>路由回调函数。当调用Navigator.of(context).pushNamed跳转路由是，在routes找不到时，会调用该方法</td>
+</tr>
+<tr>
+<td>onLocaleChange</td>
+<td></td>
+<td>当系统修改语言时，触发回调</td>
+</tr>
+<tr>
+<td>navigatorObservers</td>
+<td><code>List&lt;NavigatorObserver&gt;</code></td>
+<td>导航观察器</td>
+</tr>
+<tr>
+<td>debugShowMaterialGrid</td>
+<td>bool</td>
+<td>是否显示纸墨设计基础布局网格，用来调试UI的工具</td>
+</tr>
+<tr>
+<td>showPerformanceOverlay</td>
+<td>bool</td>
+<td>显示性能标签</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>设置主页</p>
+<p>使用home属性设置应用的主页，及整个应用的主组件。</p>
+</li>
+<li><p>路由处理</p>
+<p>routes对象是一个Map&lt;String, WidgetBuilder&gt;。当使用Navigator.pushNamed来路由的时候，会在routes查找路由名字，然后使用对应的WidgetBuilder来构造一个带有页面切换动画的MaterialPageRoute。</p>
+<p>通过routes可以给MaterialApp组件初始化一个路由列表，跳转到指定页面，代码如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Navigator.pushNamed(context, <span class="string">'/somePage'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line"> <span class="keyword">return</span> MaterialApp(</span><br><span class="line">   title: <span class="string">'Flutter Demo'</span>,</span><br><span class="line">   home: RoutesDemo(),</span><br><span class="line">   <span class="comment">// 定义路由</span></span><br><span class="line">   routes: &#123;</span><br><span class="line">     <span class="string">'/first'</span>: (BuildContext context) =&gt; FirstPage(),</span><br><span class="line">     <span class="string">'/second'</span>: (BuildContext context) =&gt; SecondPage(),</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="comment">// 初始化路由</span></span><br><span class="line">   initialRoute: <span class="string">'/first'</span>,</span><br><span class="line">  );</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义主题</p>
+</li>
+</ol>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MaterialApp(</span><br><span class="line">  title: <span class="string">'Flutter Demo'</span>,</span><br><span class="line">  <span class="comment">// 主题色</span></span><br><span class="line">  theme: ThemeData(</span><br><span class="line">    primaryColor: Colors.deepPurple</span><br><span class="line">  ),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="Scaffold-脚手架组件"><a href="#Scaffold-脚手架组件" class="headerlink" title="Scaffold(脚手架组件)"></a>Scaffold(脚手架组件)</h2><p>Scaffold实现了基本的Material Design布局。只要在Material Design中定义了的单个界面显示的布局组件元素，都可使用Scaffold来绘制。</p>
+<h3 id="Scaffold常见属性"><a href="#Scaffold常见属性" class="headerlink" title="Scaffold常见属性"></a>Scaffold常见属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appBar</td>
+<td>AppBar</td>
+<td>显示在界面顶部的一个AppBar</td>
+</tr>
+<tr>
+<td>body</td>
+<td>Widget</td>
+<td>当前界面显示的主要内容</td>
+</tr>
+<tr>
+<td>floatingActionButton</td>
+<td>Widget</td>
+<td>一个功能按钮</td>
+</tr>
+<tr>
+<td>persistentFooterButton</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>固定在下方显示的按钮</td>
+</tr>
+<tr>
+<td>drawer</td>
+<td>Widget</td>
+<td>侧边栏组件</td>
+</tr>
+<tr>
+<td>bottomNavigationBar</td>
+<td>Widget</td>
+<td>显示在底部的导航栏按钮</td>
+</tr>
+<tr>
+<td>backgroundColor</td>
+<td>Color</td>
+<td>背景色</td>
+</tr>
+<tr>
+<td>resizeToAvoidBottomPadding</td>
+<td>bool</td>
+<td>控制界面内容body是否重新布局来避免底部被覆盖，比如当键盘显示时，重新布局避免被键盘盖住内容。默认为true。</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LayoutDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      <span class="comment">// 头部元素 比如：左侧返回按钮，中间标题，右侧菜单</span></span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'脚手架组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// 视图内容部分</span></span><br><span class="line">      body: Center(</span><br><span class="line">        child: Text(<span class="string">'Scaffold组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// 底部导航栏</span></span><br><span class="line">      bottomNavigationBar: BottomAppBar(</span><br><span class="line">        child: Container(</span><br><span class="line">          height: <span class="number">50.0</span>,</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// 添加FAB按钮</span></span><br><span class="line">      floatingActionButton: FloatingActionButton(</span><br><span class="line">        onPressed: () &#123;&#125;,</span><br><span class="line">        tooltip: <span class="string">'增加'</span>,</span><br><span class="line">        child: Icon(Icons.add),</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// FAB按钮居中展示</span></span><br><span class="line">      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="AppBar-应用按钮组件"><a href="#AppBar-应用按钮组件" class="headerlink" title="AppBar(应用按钮组件)"></a>AppBar(应用按钮组件)</h2><p>应用按钮组件有AppBar和SliverAppBar。它们是Material Design中的AppBar，也就是Android中的Toolbar。都是继承自StatefulWidget类，都代表Toolbar，AppBar位置是固定在应用最上面，SliverAppBar是可以跟随内容滚动的。</p>
+<h3 id="AppBar和SliverAppBar属性及描述"><a href="#AppBar和SliverAppBar属性及描述" class="headerlink" title="AppBar和SliverAppBar属性及描述"></a>AppBar和SliverAppBar属性及描述</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>leading</td>
+<td>Widget</td>
+<td>null</td>
+<td>在标题前面显示的一个组件，在首页通常显示logo，在其他界面通常显示返回按钮</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Widget</td>
+<td>null</td>
+<td>Toolbar中主要内容，通常显示为当前界面的标题文字</td>
+</tr>
+<tr>
+<td>actions</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>null</td>
+<td>一个Widget列表，代表Toolbar中显示的菜单，对于常用的菜单，通常使用IconButton表示，不常用的菜单通常使用PopuMenuButton来显示三个点，点击弹窗二级菜单</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>PreferredSizeWidget</td>
+<td>null</td>
+<td>通常是TabBar。用来在Toolbar标题下面显示一个Tab导航</td>
+</tr>
+<tr>
+<td>elevation</td>
+<td>double</td>
+<td>4</td>
+<td>对于可滚动的SliverAppBar，当SliverAppBar和内容同级时，该值为0，当内容滚动SliverAppBar变为Toolbar时，修改elevation的值。</td>
+</tr>
+<tr>
+<td>flexibleSpace</td>
+<td>Widget</td>
+<td>null</td>
+<td>一个显示在AppBar下方的组件，高度和AppBar高度一样，可以实现一些特殊效果，该属性通常在SliverAppBar中使用。</td>
+</tr>
+<tr>
+<td>backgroundColor</td>
+<td>Color</td>
+<td>ThemeData.primaryColor</td>
+<td>背景色</td>
+</tr>
+<tr>
+<td>brightness</td>
+<td>Brightness</td>
+<td>ThemeData.primaryColorBrightness</td>
+<td>AppBar的亮度，有白色和黑色。</td>
+</tr>
+<tr>
+<td>iconTheme</td>
+<td>IconThemeData</td>
+<td>ThemeData.primaryIconTheme</td>
+<td>AppBar上图标的颜色、透明度和尺寸信息。</td>
+</tr>
+<tr>
+<td>textTheme</td>
+<td>TextTheme</td>
+<td>ThemeData.primaryTextTheme</td>
+<td>AppBar上的文字样式</td>
+</tr>
+<tr>
+<td>centerTitle</td>
+<td>bool</td>
+<td>true</td>
+<td>标题是否居中显示，默认值根据操作系统不同，显示方式不一样</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppBarDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'AppBar demo'</span>),</span><br><span class="line">        actions: &lt;Widget&gt;[</span><br><span class="line">          IconButton(</span><br><span class="line">            icon: Icon(Icons.search),</span><br><span class="line">            tooltip: <span class="string">'搜索'</span>,</span><br><span class="line">            onPressed: () &#123;&#125;,</span><br><span class="line">          ),</span><br><span class="line">          IconButton(</span><br><span class="line">            icon: Icon(Icons.add),</span><br><span class="line">            tooltip: <span class="string">'添加'</span>,</span><br><span class="line">            onPressed: () &#123;&#125;,</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BottomNavigationBar-底部导航条组件"><a href="#BottomNavigationBar-底部导航条组件" class="headerlink" title="BottomNavigationBar(底部导航条组件)"></a>BottomNavigationBar(底部导航条组件)</h2><p>BottomNavigationBar是底部导航条，可以很容易在tap之间切换和浏览顶级视图。</p>
+<h3 id="BottomNavigationBar组件属性及描述"><a href="#BottomNavigationBar组件属性及描述" class="headerlink" title="BottomNavigationBar组件属性及描述"></a>BottomNavigationBar组件属性及描述</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currentIndex</td>
+<td>int</td>
+<td>当前索引，用来切换按钮控制</td>
+</tr>
+<tr>
+<td>fixedColor</td>
+<td>Color</td>
+<td>选中按钮颜色。如果没有指定，使用系统主题色</td>
+</tr>
+<tr>
+<td>iconSize</td>
+<td>double</td>
+<td>按钮图标大小</td>
+</tr>
+<tr>
+<td>items</td>
+<td><code>List&lt;BottomNavigationBarItem&gt;</code></td>
+<td>底部导航条按钮集。每一项有icon图标和title文本属性</td>
+</tr>
+<tr>
+<td>onTap</td>
+<td><code>ValueChange&lt;int&gt;</code></td>
+<td>按下按钮时回调事件。需要根据返回的索引设置当前索引</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BottomNavigationBarDemo</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  BottomNavigationBarDemo(&#123;Key key&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  _BottomNavigationBarDemoState createState() =&gt;</span><br><span class="line">      _BottomNavigationBarDemoState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_BottomNavigationBarDemoState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">BottomNavigationBarDemo</span>&gt; </span>&#123;</span><br><span class="line">  <span class="comment">// 当前索引</span></span><br><span class="line">  <span class="built_in">int</span> _selectedIndex = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> _widgetOptions = [</span><br><span class="line">    Text(<span class="string">'Index 0: 信息'</span>),</span><br><span class="line">    Text(<span class="string">'Index 1: 通讯录'</span>),</span><br><span class="line">    Text(<span class="string">'Index 2: 发现'</span>),</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'BottomNavigationBar demo'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Center(</span><br><span class="line">        child: _widgetOptions[_selectedIndex],</span><br><span class="line">      ),</span><br><span class="line">      <span class="comment">// 底部导航按钮</span></span><br><span class="line">      bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">        items: &lt;BottomNavigationBarItem&gt;[</span><br><span class="line">          BottomNavigationBarItem(</span><br><span class="line">            icon: Icon(Icons.chat),</span><br><span class="line">            title: Text(<span class="string">'信息'</span>),</span><br><span class="line">          ),</span><br><span class="line">          BottomNavigationBarItem(</span><br><span class="line">            icon: Icon(Icons.contacts),</span><br><span class="line">            title: Text(<span class="string">'通讯录'</span>),</span><br><span class="line">          ),</span><br><span class="line">          BottomNavigationBarItem(</span><br><span class="line">            icon: Icon(Icons.account_circle),</span><br><span class="line">            title: Text(<span class="string">'发现'</span>),</span><br><span class="line">          ),</span><br><span class="line">        ],</span><br><span class="line">        currentIndex: _selectedIndex,</span><br><span class="line">        <span class="comment">// 选中时的颜色</span></span><br><span class="line">        fixedColor: Colors.deepOrange,</span><br><span class="line">        onTap: _onItemTapped,</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 按下处理，设置index</span></span><br><span class="line">  <span class="keyword">void</span> _onItemTapped(<span class="built_in">int</span> index) &#123;</span><br><span class="line">    setState(() &#123;</span><br><span class="line">      _selectedIndex = index;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="TabBar-水平选项卡及视图组件"><a href="#TabBar-水平选项卡及视图组件" class="headerlink" title="TabBar(水平选项卡及视图组件)"></a>TabBar(水平选项卡及视图组件)</h2><p>通常需要配套Tab选项组件及TabBarView页面视图组件一起使用。</p>
+<h3 id="TabBar组件属性"><a href="#TabBar组件属性" class="headerlink" title="TabBar组件属性"></a>TabBar组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>isScrollable</td>
+<td>bool</td>
+<td>是否可以水平移动</td>
+</tr>
+<tr>
+<td>tabs</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>Tab选项列表</td>
+</tr>
+<tr>
+<td>icon</td>
+<td>Widget</td>
+<td>Tab图标</td>
+</tr>
+<tr>
+<td>text</td>
+<td>String</td>
+<td>Tab文本</td>
+</tr>
+</tbody>
+</table>
+<h3 id="TabBarView组件属性"><a href="#TabBarView组件属性" class="headerlink" title="TabBarView组件属性"></a>TabBarView组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>controller</td>
+<td>TabController</td>
+<td>指定视图的控制器</td>
+</tr>
+<tr>
+<td>children</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>视图组件的child为一个列表，一个选项卡对应一个视图</td>
+</tr>
+</tbody>
+</table>
+<p>DefaultTabController 是TabBar和TabBarView的控制器，是关联两个组件的桥梁。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TabControllerSimpleDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 选项卡数据</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">List</span>&lt;Tab&gt; myTabs = &lt;Tab&gt;[</span><br><span class="line">    Tab(</span><br><span class="line">      text: <span class="string">'选项卡一'</span>,</span><br><span class="line">    ),</span><br><span class="line">    Tab(</span><br><span class="line">      text: <span class="string">'选项卡二'</span>,</span><br><span class="line">    ),</span><br><span class="line">  ];</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="comment">// 组装TabBar及TabBarView</span></span><br><span class="line">    <span class="keyword">return</span> DefaultTabController(</span><br><span class="line">      length: myTabs.length,</span><br><span class="line">      child: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">'Tab控制器'</span>),</span><br><span class="line">          <span class="comment">// 添加导航器</span></span><br><span class="line">          bottom: TabBar(</span><br><span class="line">            tabs: myTabs,</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">        <span class="comment">// 添加导航视图</span></span><br><span class="line">        body: TabBarView(</span><br><span class="line">          children: myTabs.map((Tab tab) &#123;</span><br><span class="line">            <span class="keyword">return</span> Center(</span><br><span class="line">              child: Text(tab.text),</span><br><span class="line">            );</span><br><span class="line">          &#125;).toList(),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 视图项数据</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ItemView</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ItemView(&#123;<span class="keyword">this</span>.title, <span class="keyword">this</span>.icon&#125;); <span class="comment">// 构造方法</span></span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">String</span> title; <span class="comment">// 标题</span></span><br><span class="line">  <span class="keyword">final</span> IconData icon; <span class="comment">// 图标</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 选项卡类目</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">List</span>&lt;ItemView&gt; items = <span class="keyword">const</span> &lt;ItemView&gt;[</span><br><span class="line">  <span class="keyword">const</span> ItemView(title: <span class="string">'自驾'</span>, icon: Icons.directions_car),</span><br><span class="line">  <span class="keyword">const</span> ItemView(title: <span class="string">'自行车'</span>, icon: Icons.directions_bike),</span><br><span class="line">  <span class="keyword">const</span> ItemView(title: <span class="string">'轮船'</span>, icon: Icons.directions_boat),</span><br><span class="line">  <span class="keyword">const</span> ItemView(title: <span class="string">'公交车'</span>, icon: Icons.directions_bus),</span><br><span class="line">  <span class="keyword">const</span> ItemView(title: <span class="string">'火车'</span>, icon: Icons.directions_railway),</span><br><span class="line">  <span class="keyword">const</span> ItemView(title: <span class="string">'步行'</span>, icon: Icons.directions_walk),</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TabBarDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> TabBarDemo(&#123;Key key&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> DefaultTabController(</span><br><span class="line">      length: items.length,</span><br><span class="line">      child: Scaffold(</span><br><span class="line">        appBar: AppBar(</span><br><span class="line">          title: Text(<span class="string">'TabBar组件'</span>),</span><br><span class="line">          bottom: TabBar(</span><br><span class="line">            isScrollable: <span class="keyword">true</span>,</span><br><span class="line">            tabs: items.map((ItemView item) &#123;</span><br><span class="line">              <span class="keyword">return</span> Tab(</span><br><span class="line">                text: item.title,</span><br><span class="line">                icon: Icon(item.icon),</span><br><span class="line">              );</span><br><span class="line">            &#125;).toList(),</span><br><span class="line">          ),</span><br><span class="line">        ),</span><br><span class="line">        body: TabBarView(</span><br><span class="line">          children: items.map((ItemView item) &#123;</span><br><span class="line">            <span class="keyword">return</span> Padding(</span><br><span class="line">              padding: <span class="keyword">const</span> EdgeInsets.all(<span class="number">16.0</span>),</span><br><span class="line">              child: SelectedView(item: item),</span><br><span class="line">            );</span><br><span class="line">          &#125;).toList(),</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SelectedView</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> SelectedView(&#123;Key key, <span class="keyword">this</span>.item&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 视图数据</span></span><br><span class="line">  <span class="keyword">final</span> ItemView item;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">final</span> TextStyle textStyle = Theme.of(context).textTheme.display1;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Card(</span><br><span class="line">      color: Colors.white,</span><br><span class="line">      child: Center(</span><br><span class="line">        child: Column(</span><br><span class="line">          <span class="comment">// 垂直方向最小化处理</span></span><br><span class="line">          mainAxisSize: MainAxisSize.min,</span><br><span class="line">          <span class="comment">// 水平方向居中对齐</span></span><br><span class="line">          crossAxisAlignment: CrossAxisAlignment.center,</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            Icon(</span><br><span class="line">              item.icon,</span><br><span class="line">              size: <span class="number">128.0</span>,</span><br><span class="line">              color: textStyle.color,</span><br><span class="line">            ),</span><br><span class="line">            Text(</span><br><span class="line">              item.title,</span><br><span class="line">              style: textStyle,</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Drawer-抽屉组件"><a href="#Drawer-抽屉组件" class="headerlink" title="Drawer(抽屉组件)"></a>Drawer(抽屉组件)</h2><p>Drawer可以实现类似抽屉拉出推入的效果。可以从侧边栏拉出导航栏。</p>
+<h3 id="Drawer组件常见属性"><a href="#Drawer组件常见属性" class="headerlink" title="Drawer组件常见属性"></a>Drawer组件常见属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>child</td>
+<td>Widget</td>
+<td></td>
+<td>Drawer的child可以放置任意可显示对象</td>
+</tr>
+<tr>
+<td>elevation</td>
+<td>double</td>
+<td>16</td>
+<td>组件的z坐标顺序</td>
+</tr>
+</tbody>
+</table>
+<p>Drawer可以添加头部下效果，可以用以下两个组件实现：</p>
+<ul>
+<li><p>DrawerHeader：展示基本信息</p>
+</li>
+<li><p>UserAccountsDrawerHeader：展示用户头像、用户名、email等信息</p>
+</li>
+</ul>
+<h3 id="DrawerHeader组件属性"><a href="#DrawerHeader组件属性" class="headerlink" title="DrawerHeader组件属性"></a>DrawerHeader组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>decoration</td>
+<td>Decoration</td>
+<td>header区域的decoration，通常用来设置背景色或者背景图片</td>
+</tr>
+<tr>
+<td>curve</td>
+<td>Curve</td>
+<td>如果decoration发生变化，则会使用curve设置的变化曲线和duration设置的动画时间来做一个切换动画</td>
+</tr>
+<tr>
+<td>child</td>
+<td>Widget</td>
+<td>Header里面所显示的内容控件</td>
+</tr>
+<tr>
+<td>padding</td>
+<td>EdgeInsetsGeometry</td>
+<td>Header里面内容控件的padding值，如果child为null，则无效</td>
+</tr>
+<tr>
+<td>margin</td>
+<td>EdgeInsetsGeometry</td>
+<td>Header四周的间隙</td>
+</tr>
+</tbody>
+</table>
+<h3 id="UserAccountsDrawerHeader组件属性"><a href="#UserAccountsDrawerHeader组件属性" class="headerlink" title="UserAccountsDrawerHeader组件属性"></a>UserAccountsDrawerHeader组件属性</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>margin</td>
+<td>EdgeInsetsGeometry</td>
+<td>Header四周的间隙</td>
+</tr>
+<tr>
+<td>decoration</td>
+<td>Decoration</td>
+<td>header区域的decoration，通常用来设置背景色或者背景图片</td>
+</tr>
+<tr>
+<td>currentAccountsPicture</td>
+<td>Widget</td>
+<td>设置当前用户的头像</td>
+</tr>
+<tr>
+<td>otherAccountsPicture</td>
+<td><code>List&lt;Widget&gt;</code></td>
+<td>设置当前用户其他账号的头像</td>
+</tr>
+<tr>
+<td>accountName</td>
+<td>Widget</td>
+<td>当前用户的名字</td>
+</tr>
+<tr>
+<td>accountEmail</td>
+<td>Widget</td>
+<td>当前用户的email</td>
+</tr>
+<tr>
+<td>onDetailsPressed</td>
+<td>VoidCallback</td>
+<td>当accountName或accountEmail被点击时触发的回调函数，可以用来显示其他额外的信息</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DrawerDemo</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(<span class="string">'Drawer组件'</span>),</span><br><span class="line">      ),</span><br><span class="line">      body: Drawer(</span><br><span class="line">        child: ListView(</span><br><span class="line">          children: &lt;Widget&gt;[</span><br><span class="line">            <span class="comment">// 设置用户信息、头像等</span></span><br><span class="line">            UserAccountsDrawerHeader(</span><br><span class="line">              accountName: Text(<span class="string">'玄微子'</span>),</span><br><span class="line">              accountEmail: Text(<span class="string">'xuanweizi@163.com'</span>),</span><br><span class="line">              <span class="comment">// 设置当前用户头像</span></span><br><span class="line">              currentAccountPicture: CircleAvatar(</span><br><span class="line">                backgroundImage: AssetImage(</span><br><span class="line">                  <span class="string">'images/6a4125188069420b9fce9f497a8fba2b!600x600.jpeg'</span>,</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">              onDetailsPressed: () &#123;&#125;,</span><br><span class="line">              <span class="comment">// 设置当前用户其他账户的头像</span></span><br><span class="line">              otherAccountsPictures: &lt;Widget&gt;[</span><br><span class="line">                Container(</span><br><span class="line">                  child: Image.asset(</span><br><span class="line">                    <span class="string">'images/8c597db2e5514650821591290762b237!600x600.jpeg'</span>,</span><br><span class="line">                  ),</span><br><span class="line">                ),</span><br><span class="line">              ],</span><br><span class="line">            ),</span><br><span class="line">            ListTile(</span><br><span class="line">              leading: CircleAvatar(</span><br><span class="line">                child: Icon(Icons.color_lens),</span><br><span class="line">              ),</span><br><span class="line">              title: Text(<span class="string">'个性装扮'</span>),</span><br><span class="line">            ),</span><br><span class="line">            ListTile(</span><br><span class="line">              leading: CircleAvatar(</span><br><span class="line">                child: Icon(Icons.photo),</span><br><span class="line">              ),</span><br><span class="line">              title: Text(<span class="string">'我的相册'</span>),</span><br><span class="line">            ),</span><br><span class="line">            ListTile(</span><br><span class="line">              leading: CircleAvatar(</span><br><span class="line">                child: Icon(Icons.wifi),</span><br><span class="line">              ),</span><br><span class="line">              title: Text(<span class="string">'免流量特权'</span>),</span><br><span class="line">            ),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/19/flutter初探004/" rel="next" title="flutter初探004">
+                <i class="fa fa-chevron-left"></i> flutter初探004
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/01/Material-Design风格组件02/" rel="prev" title="Material-Design风格组件02">
+                Material-Design风格组件02 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="FallingLeaves">
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Material-Design风格组件-APP结构和导航组件"><span class="nav-number">1.</span> <span class="nav-text">Material Design风格组件-APP结构和导航组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Material-Design风格组件说明"><span class="nav-number">1.1.</span> <span class="nav-text">Material Design风格组件说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APP结构和导航组件"><span class="nav-number">2.</span> <span class="nav-text">APP结构和导航组件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MaterialAPP-应用组件"><span class="nav-number">2.1.</span> <span class="nav-text">MaterialAPP(应用组件)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MaterialAPP组件属性及描述"><span class="nav-number">2.2.</span> <span class="nav-text">MaterialAPP组件属性及描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scaffold-脚手架组件"><span class="nav-number">3.</span> <span class="nav-text">Scaffold(脚手架组件)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scaffold常见属性"><span class="nav-number">3.1.</span> <span class="nav-text">Scaffold常见属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AppBar-应用按钮组件"><span class="nav-number">4.</span> <span class="nav-text">AppBar(应用按钮组件)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AppBar和SliverAppBar属性及描述"><span class="nav-number">4.1.</span> <span class="nav-text">AppBar和SliverAppBar属性及描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BottomNavigationBar-底部导航条组件"><span class="nav-number">5.</span> <span class="nav-text">BottomNavigationBar(底部导航条组件)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BottomNavigationBar组件属性及描述"><span class="nav-number">5.1.</span> <span class="nav-text">BottomNavigationBar组件属性及描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TabBar-水平选项卡及视图组件"><span class="nav-number">6.</span> <span class="nav-text">TabBar(水平选项卡及视图组件)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TabBar组件属性"><span class="nav-number">6.1.</span> <span class="nav-text">TabBar组件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TabBarView组件属性"><span class="nav-number">6.2.</span> <span class="nav-text">TabBarView组件属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drawer-抽屉组件"><span class="nav-number">7.</span> <span class="nav-text">Drawer(抽屉组件)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Drawer组件常见属性"><span class="nav-number">7.1.</span> <span class="nav-text">Drawer组件常见属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DrawerHeader组件属性"><span class="nav-number">7.2.</span> <span class="nav-text">DrawerHeader组件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UserAccountsDrawerHeader组件属性"><span class="nav-number">7.3.</span> <span class="nav-text">UserAccountsDrawerHeader组件属性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

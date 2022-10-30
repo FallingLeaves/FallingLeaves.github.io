@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="rxjs,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="建立 Observable（一）整个 RxJS 就是一个核心三个重点。一个核心是 Observable 再加上相关的 Operators（map，filter…）。另外三个重点分别是  Observer Subject Schedulers  建立 Observable建立 Observable 的方法有非常多种，其中 是最基本的方法。 方法在 对象中，要传入一个 callback functio">
+<meta name="keywords" content="rxjs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rxjs-02">
+<meta property="og:url" content="http://yoursite.com/2022/05/03/rxjs-02/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="建立 Observable（一）整个 RxJS 就是一个核心三个重点。一个核心是 Observable 再加上相关的 Operators（map，filter…）。另外三个重点分别是  Observer Subject Schedulers  建立 Observable建立 Observable 的方法有非常多种，其中 是最基本的方法。 方法在 对象中，要传入一个 callback functio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2022-05-03T01:58:54.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="rxjs-02">
+<meta name="twitter:description" content="建立 Observable（一）整个 RxJS 就是一个核心三个重点。一个核心是 Observable 再加上相关的 Operators（map，filter…）。另外三个重点分别是  Observer Subject Schedulers  建立 Observable建立 Observable 的方法有非常多种，其中 是最基本的方法。 方法在 对象中，要传入一个 callback functio">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2022/05/03/rxjs-02/">
+
+
+
+
+
+  <title>rxjs-02 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/03/rxjs-02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">rxjs-02</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-03T09:58:18+08:00">
+                2022-05-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="建立-Observable（一）"><a href="#建立-Observable（一）" class="headerlink" title="建立 Observable（一）"></a>建立 Observable（一）</h1><p>整个 RxJS 就是一个核心三个重点。<br>一个核心是 Observable 再加上相关的 Operators（map，filter…）。<br>另外三个重点分别是</p>
+<ul>
+<li>Observer</li>
+<li>Subject</li>
+<li>Schedulers</li>
+</ul>
+<h2 id="建立-Observable"><a href="#建立-Observable" class="headerlink" title="建立 Observable"></a>建立 Observable</h2><p>建立 Observable 的方法有非常多种，其中 是最基本的方法。 方法在 对象中，要传入一个 callback function ，这个 callback function 会接收一个 observer 参数，如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> (<span class="params">observer</span>) </span>&#123;</span><br><span class="line">  observer.next(<span class="string">"Jerry"</span>)</span><br><span class="line">  observer.next(<span class="string">"Anna"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>可以订阅这个 observable，来接收他送出的值，代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> (<span class="params">observer</span>) </span>&#123;</span><br><span class="line">  observer.next(<span class="string">"Jerry"</span>)</span><br><span class="line">  observer.next(<span class="string">"Anna"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 订阅</span></span><br><span class="line">observable.subscribe(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line"><span class="comment">// "Jerry"</span></span><br><span class="line"><span class="comment">// "Anna"</span></span><br></pre></td></tr></table></figure>
+<p>这里有一个重点，很多人认为 RxJS 是在做异步处理，所以所有行为都是异步的。 但其实这个观念是错的，RxJS 确实主要在处理异步行为没错，但也同时能处理同步行为，像是上面的代码就是同步执行的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> (<span class="params">observer</span>) </span>&#123;</span><br><span class="line">  observer.next(<span class="string">"Jerry"</span>)</span><br><span class="line">  observer.next(<span class="string">"Anna"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"start"</span>)</span><br><span class="line">observable.subscribe(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"end"</span>)</span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line"><span class="comment">// "start"</span></span><br><span class="line"><span class="comment">// "Jerry"</span></span><br><span class="line"><span class="comment">// "Anna"</span></span><br><span class="line"><span class="comment">// "end"</span></span><br></pre></td></tr></table></figure>
+<p>Observable 同时可以处理同步与异步的行为！</p>
+<h2 id="观察者-Observer"><a href="#观察者-Observer" class="headerlink" title="观察者 Observer"></a>观察者 Observer</h2><p>Observable 可以被订阅（subscribe），或说可以被观察，而订阅 Observable 的对象又称为 观察者（Observer）。 观察者是一个具有三个方法（method）的对象，每当 Observable 发生事件时，便会触发观察者相对应的方法。<br>tip: 注意这里的观察者（Observer）跟上一篇讲的观察者模式（Observer Pattern）无关，观察者模式是一种设计模式，是思考问题的解决过程，而这里讲的观察者是一个被定义的对象。<br>观察者的三个方法（method）：</p>
+<ul>
+<li>next：每当 Observable 发送出新的值，next 方法就会被触发。</li>
+<li>complete：在 Observable 没有其他的数据可以取得时，complete 方法就会被触发，在 complete 被触发之后，next 方法就不会再起作用。</li>
+<li>error：每当 Observable 内发生错误时，error 方法就会被触发。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> (<span class="params">observer</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    observer.next(<span class="string">"Jerry"</span>)</span><br><span class="line">    observer.next(<span class="string">"Anna"</span>)</span><br><span class="line">    <span class="keyword">throw</span> <span class="string">"some exception"</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    observer.error(err)</span><br><span class="line">  &#125;</span><br><span class="line">  observer.complete()</span><br><span class="line">  observer.next(<span class="string">"not work"</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// next, error, complete 三個方法</span></span><br><span class="line"><span class="keyword">var</span> observer = &#123;</span><br><span class="line">  next: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"next "</span> + value)</span><br><span class="line">  &#125;,</span><br><span class="line">  error: <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"error "</span> + error)</span><br><span class="line">  &#125;,</span><br><span class="line">  complete: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"complete"</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 订阅 observable</span></span><br><span class="line">observable.subscribe(observer)</span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line"><span class="comment">// "next Jerry"</span></span><br><span class="line"><span class="comment">// "next Anna"</span></span><br><span class="line"><span class="comment">// "some exception"</span></span><br></pre></td></tr></table></figure>
+<p>error 和 complete 互斥的<br>观察者可以是不完整的，他可以只具有一个 next 方法<br>订阅一个 Observable 就像是执行一个 function</p>
+<h1 id="建立-Observable-二"><a href="#建立-Observable-二" class="headerlink" title="建立 Observable(二)"></a>建立 Observable(二)</h1><h2 id="Creation-Operator"><a href="#Creation-Operator" class="headerlink" title="Creation Operator"></a>Creation Operator</h2><p>Observable 有许多创建实例的方法叫做 Creation Operator，常用的有：</p>
+<ul>
+<li>create</li>
+<li>of</li>
+<li>from</li>
+<li>fromEvent</li>
+<li>fromPromise</li>
+<li>never</li>
+<li>empty</li>
+<li>throwError</li>
+<li>interval</li>
+<li>timer</li>
+</ul>
+<h3 id="create"><a href="#create" class="headerlink" title="create"></a>create</h3><p>创建一个新的 Observable ，当观察者( Observer )订阅该 Observable 时，它会执行指定的函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> observable = Rx.Observable.create(<span class="function"><span class="keyword">function</span> (<span class="params">observer</span>) </span>&#123;</span><br><span class="line">  observer.next(<span class="number">1</span>)</span><br><span class="line">  observer.next(<span class="number">2</span>)</span><br><span class="line">  observer.next(<span class="number">3</span>)</span><br><span class="line">  observer.complete()</span><br><span class="line">&#125;)</span><br><span class="line">observable.subscribe(</span><br><span class="line">  (value) =&gt; <span class="built_in">console</span>.log(value),</span><br><span class="line">  (err) =&gt; &#123;&#125;,</span><br><span class="line">  () =&gt; <span class="built_in">console</span>.log(<span class="string">"this is the end"</span>)</span><br><span class="line">)</span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// "this is the end"</span></span><br></pre></td></tr></table></figure>
+<h3 id="of"><a href="#of" class="headerlink" title="of"></a>of</h3><p>创建一个 Observable，它会依次发出由你提供的参数，最后发出完成通知。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = Rx.Observable.of(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>)</span><br><span class="line"><span class="keyword">var</span> letters = Rx.Observable.of(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br><span class="line"><span class="keyword">var</span> interval = Rx.Observable.interval(<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">var</span> result = numbers.concat(letters).concat(interval)</span><br><span class="line">result.subscribe(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(x))</span><br><span class="line"><span class="comment">// 发出 10、20、 30, 然后是 'a'、 'b'、 'c', 紧接着开始每秒发出。</span></span><br></pre></td></tr></table></figure>
+<h3 id="from"><a href="#from" class="headerlink" title="from"></a>from</h3><p>从一个数组、类数组对象、Promise、迭代器对象或者类 Observable 对象创建一个 Observable。<br>字符串，在这种上下文里，会被当做字符数组。<br>几乎可以把任何东西都能转化为 Observable。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line"><span class="keyword">var</span> result = Rx.Observable.from(array)</span><br><span class="line">result.subscribe(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(x))</span><br><span class="line"><span class="comment">// 结果如下:</span></span><br><span class="line"><span class="comment">// 10 20 30</span></span><br><span class="line"><span class="keyword">var</span> source = Rx.Observable.from(</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      resolve(<span class="string">"Hello RxJS!"</span>)</span><br><span class="line">    &#125;, <span class="number">3000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">)</span><br><span class="line">source.subscribe(&#123;</span><br><span class="line">  next: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">  &#125;,</span><br><span class="line">  complete: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"complete!"</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  error: <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// Hello RxJS!</span></span><br><span class="line"><span class="comment">// complete!</span></span><br></pre></td></tr></table></figure>
+<h3 id="fromEvent"><a href="#fromEvent" class="headerlink" title="fromEvent"></a>fromEvent</h3><p>创建一个 Observable，该 Observable 发出来自给定事件对象的指定类型事件。<br>创建一个来自于 DOM 事件，或者 Node 的 EventEmitter 事件或者其他事件的 Observable。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发出 DOM document 上的点击事件。</span></span><br><span class="line"><span class="keyword">var</span> clicks = Rx.Observable.fromEvent(<span class="built_in">document</span>, <span class="string">"click"</span>)</span><br><span class="line">clicks.subscribe(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(x))</span><br><span class="line"><span class="comment">// 结果:</span></span><br><span class="line"><span class="comment">// 每次点击 document 时，都会在控制台上输出 MouseEvent 。</span></span><br></pre></td></tr></table></figure>
+<p>fromEventPattern 从一个基于 addHandler/removeHandler 方法的 API 创建 Observable。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClickHandler</span>(<span class="params">handler</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>, handler)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeClickHandler</span>(<span class="params">handler</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.removeEventListener(<span class="string">"click"</span>, handler)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> clicks = Rx.Observable.fromEventPattern(addClickHandler, removeClickHandler)</span><br><span class="line">clicks.subscribe(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(x))</span><br></pre></td></tr></table></figure>
+<h3 id="fromPromise"><a href="#fromPromise" class="headerlink" title="fromPromise"></a>fromPromise</h3><p>将 Promise 转化为 Observable。<br>返回一个仅仅发出 Promise resolve 过的值然后完成的 Observable。</p>
+<h3 id="never"><a href="#never" class="headerlink" title="never"></a>never</h3><p>创建一个不向观察者发出任何项的 Observable 。由于不会发送完成通知，这个 Observable 的 subscription 不会被自动地清理。Subscriptions 需要手动清理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发出7, 然后不发出任何值(也不发出完成通知)。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">info</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"Will not be called"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> result = Rx.Observable.never().startWith(<span class="number">7</span>)</span><br><span class="line">result.subscribe(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(x), info, info)</span><br></pre></td></tr></table></figure>
+<h3 id="empty"><a href="#empty" class="headerlink" title="empty"></a>empty</h3><p>创建一个什么数据都不发出并且立马完成的 Observable。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = Rx.Observable.empty().startWith(<span class="number">7</span>)</span><br><span class="line">result.subscribe(</span><br><span class="line">  (x) =&gt; <span class="built_in">console</span>.log(x),</span><br><span class="line">  (err) =&gt; <span class="built_in">console</span>.log(err),</span><br><span class="line">  () =&gt; <span class="built_in">console</span>.log(<span class="string">"complete"</span>)</span><br><span class="line">)</span><br><span class="line"><span class="comment">// 7</span></span><br><span class="line"><span class="comment">// complete</span></span><br></pre></td></tr></table></figure>
+<h3 id="throwError"><a href="#throwError" class="headerlink" title="throwError"></a>throwError</h3><p>创建一个 Observable，不向观察者发出任何项目 发出错误通知。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; throwError, concat, <span class="keyword">of</span> &#125; <span class="keyword">from</span> <span class="string">"rxjs"</span></span><br><span class="line"><span class="keyword">const</span> result = concat(<span class="keyword">of</span>(<span class="number">7</span>), throwError(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"oops!"</span>)))</span><br><span class="line">result.subscribe(</span><br><span class="line">  (x) =&gt; <span class="built_in">console</span>.log(x),</span><br><span class="line">  (e) =&gt; <span class="built_in">console</span>.error(e)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="interval"><a href="#interval" class="headerlink" title="interval"></a>interval</h3><p>创建一个 Observable，它在指定的时间间隔内每个指定的时间间隔发出序号 SchedulerLike。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; interval &#125; <span class="keyword">from</span> <span class="string">"rxjs"</span></span><br><span class="line"><span class="keyword">import</span> &#123; take &#125; <span class="keyword">from</span> <span class="string">"rxjs/operators"</span></span><br><span class="line"><span class="keyword">const</span> numbers = interval(<span class="number">1000</span>)</span><br><span class="line"><span class="keyword">const</span> takeFourNumbers = numbers.pipe(take(<span class="number">4</span>))</span><br><span class="line">takeFourNumbers.subscribe(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"Next: "</span>, x))</span><br><span class="line"><span class="comment">// Logs:</span></span><br><span class="line"><span class="comment">// Next: 0</span></span><br><span class="line"><span class="comment">// Next: 1</span></span><br><span class="line"><span class="comment">// Next: 2</span></span><br><span class="line"><span class="comment">// Next: 3</span></span><br></pre></td></tr></table></figure>
+<h3 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h3><p>创建一个 Observable，在 之后开始发射 dueTime 和 此后每次发射之后 发射的数字都在不断增加 period， 。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; timer &#125; <span class="keyword">from</span> <span class="string">"rxjs"</span></span><br><span class="line"><span class="keyword">const</span> numbers = timer(<span class="number">3000</span>, <span class="number">1000</span>)</span><br><span class="line">numbers.subscribe(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="built_in">console</span>.log(x))</span><br><span class="line"><span class="comment">// 3s后打印0，之后间隔1s递增打印</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; timer &#125; <span class="keyword">from</span> <span class="string">"rxjs"</span></span><br><span class="line"><span class="keyword">const</span> numbers = timer(<span class="number">5000</span>)</span><br><span class="line">numbers.subscribe(</span><br><span class="line">  (x) =&gt; <span class="built_in">console</span>.log(x),</span><br><span class="line">  (err) =&gt; <span class="built_in">console</span>.log(err),</span><br><span class="line">  () =&gt; <span class="built_in">console</span>.log(<span class="string">"complete"</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="Subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h3><p>订阅 observable 后会返回 Subscription，具有释放资源的 unsubscribe 方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; timer &#125; <span class="keyword">from</span> <span class="string">"rxjs"</span></span><br><span class="line"><span class="keyword">const</span> numbers = timer(<span class="number">1000</span>, <span class="number">1000</span>)</span><br><span class="line"><span class="keyword">const</span> subscription = numbers.subscribe(</span><br><span class="line">  (x) =&gt; <span class="built_in">console</span>.log(x),</span><br><span class="line">  (err) =&gt; <span class="built_in">console</span>.log(err),</span><br><span class="line">  () =&gt; <span class="built_in">console</span>.log(<span class="string">"complete"</span>)</span><br><span class="line">)</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  subscription.unsubscribe() <span class="comment">// 停止订阅</span></span><br><span class="line">&#125;, <span class="number">5000</span>)</span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rxjs/" rel="tag"># rxjs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/04/12/rxjs-01/" rel="next" title="rxjs-01">
+                <i class="fa fa-chevron-left"></i> rxjs-01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/10/26/类型检测/" rel="prev" title="类型检测">
+                类型检测 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="FallingLeaves">
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#建立-Observable（一）"><span class="nav-number">1.</span> <span class="nav-text">建立 Observable（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建立-Observable"><span class="nav-number">1.1.</span> <span class="nav-text">建立 Observable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者-Observer"><span class="nav-number">1.2.</span> <span class="nav-text">观察者 Observer</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立-Observable-二"><span class="nav-number">2.</span> <span class="nav-text">建立 Observable(二)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Creation-Operator"><span class="nav-number">2.1.</span> <span class="nav-text">Creation Operator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#create"><span class="nav-number">2.1.1.</span> <span class="nav-text">create</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#of"><span class="nav-number">2.1.2.</span> <span class="nav-text">of</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#from"><span class="nav-number">2.1.3.</span> <span class="nav-text">from</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fromEvent"><span class="nav-number">2.1.4.</span> <span class="nav-text">fromEvent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fromPromise"><span class="nav-number">2.1.5.</span> <span class="nav-text">fromPromise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#never"><span class="nav-number">2.1.6.</span> <span class="nav-text">never</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#empty"><span class="nav-number">2.1.7.</span> <span class="nav-text">empty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#throwError"><span class="nav-number">2.1.8.</span> <span class="nav-text">throwError</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#interval"><span class="nav-number">2.1.9.</span> <span class="nav-text">interval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timer"><span class="nav-number">2.1.10.</span> <span class="nav-text">timer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscription"><span class="nav-number">2.1.11.</span> <span class="nav-text">Subscription</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

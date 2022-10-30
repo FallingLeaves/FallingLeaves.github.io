@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="css,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="css 世界的层叠规则 demo1. z-Index 只是 css 世界层叠规则中的一叶小舟 z-Index 只能作用定位元素和 flex 布局的子元素，而页面中多数是非定位元素  2. css 世界的层叠上下文和层叠水平 层叠上下文：HTML 中的三维概念，如果一个元素有层叠上下文，就说该元素在 z 轴高人一等。层叠上下文可以理解为层叠结界，自成一个小世界，这个小世界可能包含其他的层叠结界，或包">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css世界层叠规则">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/css世界层叠规则/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="css 世界的层叠规则 demo1. z-Index 只是 css 世界层叠规则中的一叶小舟 z-Index 只能作用定位元素和 flex 布局的子元素，而页面中多数是非定位元素  2. css 世界的层叠上下文和层叠水平 层叠上下文：HTML 中的三维概念，如果一个元素有层叠上下文，就说该元素在 z 轴高人一等。层叠上下文可以理解为层叠结界，自成一个小世界，这个小世界可能包含其他的层叠结界，或包">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/层叠顺序规则.png">
+<meta property="og:image" content="http://yoursite.com/images/新的层叠顺序.png">
+<meta property="og:updated_time" content="2018-06-05T16:14:30.585Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css世界层叠规则">
+<meta name="twitter:description" content="css 世界的层叠规则 demo1. z-Index 只是 css 世界层叠规则中的一叶小舟 z-Index 只能作用定位元素和 flex 布局的子元素，而页面中多数是非定位元素  2. css 世界的层叠上下文和层叠水平 层叠上下文：HTML 中的三维概念，如果一个元素有层叠上下文，就说该元素在 z 轴高人一等。层叠上下文可以理解为层叠结界，自成一个小世界，这个小世界可能包含其他的层叠结界，或包">
+<meta name="twitter:image" content="http://yoursite.com/images/层叠顺序规则.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/css世界层叠规则/">
+
+
+
+
+
+  <title>css世界层叠规则 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/css世界层叠规则/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css世界层叠规则</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T15:45:06+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="css-世界的层叠规则-demo"><a href="#css-世界的层叠规则-demo" class="headerlink" title="css 世界的层叠规则 demo"></a>css 世界的层叠规则 <a href="https://fallingleaves.github.io/css-world/page/第七章-css世界的层叠规则.html" target="_blank" rel="noopener">demo</a></h1><h2 id="1-z-Index-只是-css-世界层叠规则中的一叶小舟"><a href="#1-z-Index-只是-css-世界层叠规则中的一叶小舟" class="headerlink" title="1. z-Index 只是 css 世界层叠规则中的一叶小舟"></a>1. z-Index 只是 css 世界层叠规则中的一叶小舟</h2><blockquote>
+<p>z-Index 只能作用定位元素和 flex 布局的子元素，而页面中多数是非定位元素</p>
+</blockquote>
+<h2 id="2-css-世界的层叠上下文和层叠水平"><a href="#2-css-世界的层叠上下文和层叠水平" class="headerlink" title="2. css 世界的层叠上下文和层叠水平"></a>2. css 世界的层叠上下文和层叠水平</h2><ul>
+<li>层叠上下文：HTML 中的三维概念，如果一个元素有层叠上下文，就说该元素在 z 轴高人一等。层叠上下文可以理解为层叠结界，自成一个小世界，这个小世界可能包含其他的层叠结界，或包含在其他层叠结界中</li>
+<li>层叠水平：决定了同一个层叠上下文中，元素在 z 轴上的显示顺序。普通元素的层叠水平探讨只考虑当前层叠上下文，因为普通元素的层叠水平无法突破层叠结界和结界外的元素比较层叠水平</li>
+<li>层叠顺序：表示元素发生层叠时，有着特定的垂直显示顺序。css3 前的层叠顺序规则:<br><img src="/images/层叠顺序规则.png"><br>补充：<ol>
+<li>位于最下面的 background/border 特指层叠上下文元素的边框和背景色。每一个层叠顺序规则仅适用于当前层叠上下文元素的小世界。</li>
+<li>inline 水平盒子指的是包括 inline/inline-block/inline-table 元素的“层叠顺序”，它们都是同等级别的。</li>
+<li>单纯从层叠水平上看，实际上 z-index:0 和 z-index:auto 是可以看成是一样的。注意这里的措辞—“单纯从层叠水平上看”，实际上，两者在层叠上下文领域有着根本性的差异。</li>
+</ol>
+</li>
+</ul>
+<h2 id="3-层叠准则"><a href="#3-层叠准则" class="headerlink" title="3. 层叠准则"></a>3. 层叠准则</h2><ol>
+<li>谁大谁上：当明显的层叠水平标识时，如生效的 z-index，在同一个层叠上下文领域，层叠水平大的覆盖小的。</li>
+<li>后来居上：当元素的层叠水平一致，处于同一层叠顺序时，DOM 流后面的覆盖前面的。</li>
+</ol>
+<h2 id="4-层叠上下文的特性"><a href="#4-层叠上下文的特性" class="headerlink" title="4. 层叠上下文的特性"></a>4. 层叠上下文的特性</h2><ol>
+<li>层叠上下文的层叠水平比普通元素高。</li>
+<li>层叠上下文可以阻断元素的混合模式。</li>
+<li>层叠上下文可以嵌套，内部层叠上下文及其所有子元素受制于外部的层叠上下文。</li>
+<li>每个层叠上下文与兄弟元素独立。</li>
+<li>每个层叠上下文是自成体系的，当元素发生层叠时，整个元素被认为是在父层叠上下文的层叠顺序中。</li>
+</ol>
+<h2 id="5-层叠上下文的创建"><a href="#5-层叠上下文的创建" class="headerlink" title="5. 层叠上下文的创建"></a>5. 层叠上下文的创建</h2><ul>
+<li>天生派，页面根元素天生具有层叠上下文，称为根层叠上下文。</li>
+<li>正统派，z-index 为数值的定位元素的传统层叠上下文。</li>
+<li>扩招派，其他 css3 属性。<ol>
+<li>元素为 flex 布局，同时 z-index 不为 auto。</li>
+<li>元素的 opacity 值不为 1。</li>
+<li>元素的 transform 的值不为 none。</li>
+<li>元素 mix-blend-mode 值不是 normal。</li>
+<li>元素的 filter 值不是 none。</li>
+<li>元素的 isolation 值是 isolate。</li>
+<li>元素的 will-change 属性值为上面 2 ～ 6 的任意一个（如 will-change:opacity、will-chang:transform 等）。</li>
+<li>元素的-webkit-overflow-scrolling 设为 touch。</li>
+</ol>
+</li>
+</ul>
+<h2 id="6-层叠上下文与层叠顺序"><a href="#6-层叠上下文与层叠顺序" class="headerlink" title="6. 层叠上下文与层叠顺序"></a>6. 层叠上下文与层叠顺序</h2><ol>
+<li>如果层叠上下文元素不依赖 z-index 数值，则其层叠顺序是 z-index:auto，可看成 z:index:0 级别；</li>
+<li>如果层叠上下文元素依赖 z-index 数值，则其层叠顺序由 z-index 值决定。<br><img src="/images/新的层叠顺序.png"></li>
+</ol>
+<h2 id="7-z-Index-的负值"><a href="#7-z-Index-的负值" class="headerlink" title="7. z-Index 的负值"></a>7. z-Index 的负值</h2><blockquote>
+<p>z-index 负值渲染的过程就是一个寻找第一个层叠上下文元素的过程，然后层叠顺序止步于这个层叠上下文元素。可以做可访问性隐藏、ie8 模拟多背景（利用伪类最多 3 个）</p>
+</blockquote>
+<h2 id="8-z-Index-不犯二准则"><a href="#8-z-Index-不犯二准则" class="headerlink" title="8. z-Index 不犯二准则"></a>8. z-Index 不犯二准则</h2><ul>
+<li>对于非浮层元素，避免设置 z-index 值，z-index 值没有任何道理需要超过 2。（不包括那些在页面上飘来飘去的元素定位，弹框、出错提示、一些下拉效果等都不受这一准则限制）。</li>
+<li>定位元素一旦设置 z-index，就从普通定位元素变成层叠上下文元素，相互间的层叠顺序发生根本变化，避免 z-index 一山比一山高的样式混乱问题。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/01/line-height和vertical-align/" rel="next" title="line-height和vertical-align">
+                <i class="fa fa-chevron-left"></i> line-height和vertical-align
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/12/文本的装饰与美化/" rel="prev" title="文本的装饰与美化">
+                文本的装饰与美化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="FallingLeaves">
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#css-世界的层叠规则-demo"><span class="nav-number">1.</span> <span class="nav-text">css 世界的层叠规则 demo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-z-Index-只是-css-世界层叠规则中的一叶小舟"><span class="nav-number">1.1.</span> <span class="nav-text">1. z-Index 只是 css 世界层叠规则中的一叶小舟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-css-世界的层叠上下文和层叠水平"><span class="nav-number">1.2.</span> <span class="nav-text">2. css 世界的层叠上下文和层叠水平</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-层叠准则"><span class="nav-number">1.3.</span> <span class="nav-text">3. 层叠准则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-层叠上下文的特性"><span class="nav-number">1.4.</span> <span class="nav-text">4. 层叠上下文的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-层叠上下文的创建"><span class="nav-number">1.5.</span> <span class="nav-text">5. 层叠上下文的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-层叠上下文与层叠顺序"><span class="nav-number">1.6.</span> <span class="nav-text">6. 层叠上下文与层叠顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-z-Index-的负值"><span class="nav-number">1.7.</span> <span class="nav-text">7. z-Index 的负值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-z-Index-不犯二准则"><span class="nav-number">1.8.</span> <span class="nav-text">8. z-Index 不犯二准则</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+<link href="/css/my.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="小程序,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="初识小程序文件 wx.saveFile(Object object)保存文件到本地。注意：saveFile 会把临时文件移动，因此调用成功后传入的 tempFilePath 将不可用 参数 属性名 | 类型 | 默认值 | 必填 | 说明———|———-|———|———|———tempFilePath | string |  | 是 | 需要保存的文件的临时路径success | function">
+<meta name="keywords" content="小程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识小程序理论篇——07">
+<meta property="og:url" content="http://yoursite.com/2018/09/22/初识小程序理论篇——07/index.html">
+<meta property="og:site_name" content="FallingLeaves的前端修炼之路">
+<meta property="og:description" content="初识小程序文件 wx.saveFile(Object object)保存文件到本地。注意：saveFile 会把临时文件移动，因此调用成功后传入的 tempFilePath 将不可用 参数 属性名 | 类型 | 默认值 | 必填 | 说明———|———-|———|———|———tempFilePath | string |  | 是 | 需要保存的文件的临时路径success | function">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-18T02:38:35.171Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识小程序理论篇——07">
+<meta name="twitter:description" content="初识小程序文件 wx.saveFile(Object object)保存文件到本地。注意：saveFile 会把临时文件移动，因此调用成功后传入的 tempFilePath 将不可用 参数 属性名 | 类型 | 默认值 | 必填 | 说明———|———-|———|———|———tempFilePath | string |  | 是 | 需要保存的文件的临时路径success | function">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/22/初识小程序理论篇——07/">
+
+
+
+
+
+  <title>初识小程序理论篇——07 | FallingLeaves的前端修炼之路</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/FallingLeaves/FallingLeaves.github.io.git"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/images/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FallingLeaves的前端修炼之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a class="button" href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a class="button" href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a class="button" href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a class="button" href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-something">
+          <a class="button" href="/something" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            有料
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/22/初识小程序理论篇——07/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FallingLeaves">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FallingLeaves的前端修炼之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初识小程序理论篇——07</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T09:22:57+08:00">
+                2018-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="初识小程序"><a href="#初识小程序" class="headerlink" title="初识小程序"></a>初识小程序</h2><h3 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h3><ol>
+<li><p>wx.saveFile(Object object)<br>保存文件到本地。注意：saveFile 会把临时文件移动，因此调用成功后传入的 tempFilePath 将不可用</p>
+<p>参数</p>
+<p>属性名 | 类型 | 默认值 | 必填 | 说明<br>———|———-|———|———|———<br>tempFilePath | string |  | 是 | 需要保存的文件的临时路径<br>success | function |  | 否 | 接口调用成功的回调函数<br>fail | function |  | 否 | 接口调用失败的回调函数<br>complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数：savedFilePath存储后的文件路径</p>
+</li>
+<li><p>wx.removeSavedFile(Object object)<br>删除本地缓存文件</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 需要删除的文件路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>wx.openDocument(Object object)<br>新开页面打开文档</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明 | 最低版本<br> -|—-|—-|—–|—-|—-|—–<br> filePath | string |  | 是 | 文件路径，可通过 downloadFile 获得 |<br> fileType | string |  | 否 | 文件类型，指定文件类型打开文件 | 1.4.0<br> success | function |  | 否 | 接口调用成功的回调函数 |<br> fail | function |  | 否 | 接口调用失败的回调函数 |<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.fileType 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> doc | doc 格式 |<br> docx | docx 格式 |<br> xls | xls 格式 |<br> xlsx | xlsx 格式 |<br> ppt | ppt 格式 |<br> pptx | pptx 格式 |<br> pdf | pdf 格式</p>
+</li>
+<li><p>wx.getSavedFileList(Object object)<br>获取该小程序下已保存的本地缓存文件列表</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数fileList：文件数组，每一项是一个 FileItem</p>
+<p>res.fileList 的结构<br> | 属性 | 类型 | 说明<br> -|—-|—-|—<br> filePath | string | 本地路径<br> size | number | 本地文件大小，以字节为单位<br> createTime | number | 文件保存时的时间戳，从1970/01/01 08:00:00 到当前时间的秒数</p>
+</li>
+<li><p>wx.getSavedFileInfo(Object object)<br>获取本地文件的文件信息。此接口只能用于获取已保存到本地的文件，若需要获取临时文件信息，请使用 wx.getFileInfo() 接口。</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 文件路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数<br> | 属性 | 类型 | 说明<br> -|—-|—-|—<br> size | number | 文件大小，单位 B<br> createTime | number | 文件保存时的时间戳，从1970/01/01 08:00:00 到该时刻的秒数</p>
+</li>
+<li><p>wx.getFileSystemManager()<br>基础库 1.9.9 开始支持，低版本需做兼容处理。获取全局唯一的文件管理器</p>
+</li>
+<li><p>wx.getFileInfo(Object object)<br>基础库 1.4.0 开始支持，低版本需做兼容处理。获取文件信息。</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 本地文件路径<br> digestAlgorithm | string | ‘md5’ | 否 | 计算文件摘要的算法<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.digestAlgorithm 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> md5 | md5 算法 |<br> sha1 | sha1 算法</p>
+<p>object.success 回调函数参数<br> | 属性 | 类型 | 说明<br> -|—-|—-|—<br> size | number | 文件大小，以字节为单位<br> digest | string | 按照传入的 digestAlgorithm 计算得出的的文件摘要</p>
+</li>
+<li><p>FileSystemManager<br>基础库 1.9.9 开始支持，低版本需做兼容处理。文件管理器。</p>
+<ul>
+<li><p>FileSystemManager.access(Object object)判断文件/目录是否存在  </p>
+<p> 参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> path | string |  | 是 | 要判断是否存在的文件/目录路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.fail 回调函数参数errMsg：错误信息<br>res.errMsg 的合法值：fail no such file or directory ${path}，文件/目录不存在</p>
+</li>
+<li><p>FileSystemManager.accessSync(string path)FileSystemManager.access 的同步版本<br>参数string path：要判断是否存在的文件/目录路径</p>
+</li>
+<li><p>FileSystemManager.appendFile(Object object)基础库 2.1.0 开始支持，低版本需做兼容处理。在文件结尾追加内容</p>
+<p> 参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 要追加内容的文件路径<br> data | string/ArrayBuffer |  | 是 | 要追加的文本或二进制数据<br> encoding | string | utf8 | 否 | 指定写入文件的字符编码<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p> object.encoding 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> ascii |  |<br> base64 |  |<br> binary |  |<br> hex |  |<br> ucs2 | 以小端序读取 |<br> ucs-2 | 以小端序读取 |<br> utf16le | 以小端序读取 |<br> utf-16le | 以小端序读取 |<br> utf-8 |  |<br> utf8 |  |<br> latin1</p>
+<p> object.fail 回调函数参数errMsg：错误信息</p>
+<p> res.errMsg 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> fail no such file or directory, open ${filePath} | 指定的 filePath 文件不存在 |<br> fail illegal operation on a directory, open “${filePath}” | 指定的 filePath 是一个已经存在的目录 |<br> fail permission denied, open ${dirPath} | 指定的 filePath 路径没有写权限 |<br> fail sdcard not mounted | 指定的 filePath 是一个已经存在的目录</p>
+</li>
+<li><p>FileSystemManager.appendFileSync(string filePath, string|ArrayBuffer data, string encoding)基础库 2.1.0 开始支持，低版本需做兼容处理。FileSystemManager.appendFile 的同步版本</p>
+<p> 参数</p>
+<ul>
+<li><p>string filePath要追加内容的文件路径</p>
+</li>
+<li><p>string|ArrayBuffer data要追加的文本或二进制数据</p>
+</li>
+<li><p>string encoding指定写入文件的字符编码</p>
+<p>encoding 的合法值<br>| 值 | 说明 | 最低版本<br>-|—|—-|—–<br>ascii |  |<br>base64 |  |<br>binary |  |<br>hex |  |<br>ucs2 | 以小端序读取 |<br>ucs-2 | 以小端序读取 |<br>utf16le | 以小端序读取 |<br>utf-16le | 以小端序读取 |<br>utf-8 |  |<br>utf8 |  |<br>latin1</p>
+<p>错误<br>| 错误码 | 错误信息 | 说明<br>-|—–|——|—<br>||fail no such file or directory, open ${filePath} | 指定的 filePath 文件不存在<br>||fail illegal operation on a directory, open “${filePath}” | 指定的 filePath 是一个已经存在的目录<br>||fail permission denied, open ${dirPath} | 指定的 filePath 路径没有写权限<br>||fail sdcard not mounted | 指定的 filePath 是一个已经存在的目录</p>
+</li>
+</ul>
+</li>
+<li><p>FileSystemManager.copyFile(Object object)复制文件</p>
+<p>  参数<br>   | 属性 | 类型 | 默认值 | 必填 | 说明<br>   -|—-|—-|—–|—-|—<br>   srcPath | string |  | 是 | 源文件路径，只可以是普通文件<br>   destPath | string |  | 是 | 目标文件路径<br>   success | function |  | 否 | 接口调用成功的回调函数<br>   fail | function |  | 否 | 接口调用失败的回调函数<br>   complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>  object.fail 回调函数参数errMsg：错误信息</p>
+<p>  res.errMsg 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> fail permission denied, copyFile ${srcPath} -&gt; ${destPath} | 指定目标文件路径没有写权限 |<br> fail no such file or directory, copyFile ${srcPath} -&gt; ${destPath} | 源文件不存在，或目标文件路径的上层目录不存在</p>
+</li>
+<li><p>FileSystemManager.copyFileSync(string srcPath, string destPath)FileSystemManager.copyFile 的同步版本</p>
+</li>
+<li><p>FileSystemManager.getFileInfo(Object object)获取该小程序下的 本地临时文件 或 本地缓存文件 信息</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 要读取的文件路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数size：文件大小，以字节为单位</p>
+<p>object.fail 回调函数参数errMsg：错误信息</p>
+<p>res.errMsg 的合法值：fail file not exist（指定的 filePath 找不到文件）</p>
+</li>
+<li><p>FileSystemManager.getSavedFileList(Object object)获取该小程序下已保存的本地缓存文件列表</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数fileList：文件数组</p>
+<p>res.fileList 的结构<br> | 属性 | 类型 | 说明<br> -|—-|—-|—<br> filePath | string | 本地路径<br> size | number | 本地文件大小，以字节为单位<br> createTime | number | 文件保存时的时间戳，从1970/01/01 08:00:00 到当前时间的秒数</p>
+</li>
+<li><p>FileSystemManager.mkdir(Object object)创建目录</p>
+<p> 参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明 | 最低版本<br> -|—-|—-|—–|—-|—-|—–<br> dirPath | string |  | 是 | 创建的目录路径 |<br> recursive | boolean | false | 否 | 是否在递归创建该目录的上级目录后再创建该目录。如果对应的上级目录已经存在，则不创建该上级目录。如 dirPath 为 a/b/c/d 且 recursive 为 true，将创建 a 目录，再在 a 目录下创建 b 目录，以此类推直至创建 a/b/c 目录下的 d 目录。 | 2.3.0<br> success | function |  | 否 | 接口调用成功的回调函数 |<br> fail | function |  | 否 | 接口调用失败的回调函数 |<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p> object.fail 回调函数参数errMsg：错误信息</p>
+<p> res.errMsg 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> fail no such file or directory ${dirPath} | 上级目录不存在 |<br> fail permission denied, open ${dirPath} | 指定的 filePath 路径没有写权限 |<br> fail file already exists ${dirPath} | 有同名文件或目录</p>
+</li>
+<li><p>FileSystemManager.mkdirSync(string dirPath, boolean recursive)FileSystemManager.mkdir 的同步版本</p>
+</li>
+<li><p>FileSystemManager.readdir(Object object)读取目录内文件列表</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> dirPath | string |  | 是 | 要读取的目录路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数files：指定目录下的文件名数组。</p>
+<p>object.fail 回调函数参数errMsg：错误信息</p>
+<p>res.errMsg 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> fail no such file or directory ${dirPath} | 目录不存在 |<br> fail not a directory ${dirPath} | dirPath 不是目录 |<br> fail permission denied, open ${dirPath} | 指定的 filePath 路径没有读权限</p>
+</li>
+<li><p>FileSystemManager.readdirSync(string dirPath)FileSystemManager.readdir 的同步版本</p>
+</li>
+<li><p>FileSystemManager.readFile(Object object)读取本地文件内容</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 要读取的文件的路径<br> encoding | string |  | 否 | 指定读取文件的字符编码，如果不传 encoding，则以 ArrayBuffer 格式读取文件的二进制内容<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.encoding 的合法值<br> | 值 | 说明 | 最低版本<br> -|—|—-|—–<br> ascii |  |<br> base64 |  |<br> binary |  |<br> hex |  |<br> ucs2 | 以小端序读取 |<br> ucs-2 | 以小端序读取 |<br> utf16le | 以小端序读取 |<br> utf-16le | 以小端序读取 |<br> utf-8 |  |<br> utf8 |  |<br> latin1</p>
+<p>object.success 回调函数参数data：文件内容</p>
+</li>
+<li><p>FileSystemManager.readFileSync(string filePath, string encoding)FileSystemManager.readFile 的同步版本</p>
+</li>
+<li><p>FileSystemManager.removeSavedFile(Object object)删除该小程序下已保存的本地缓存文件</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 需要删除的文件路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>FileSystemManager.rename(Object object)重命名文件。可以把文件从 oldPath 移动到 newPath</p>
+<p> 参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> oldPath | string |  | 是 | 源文件路径，可以是普通文件或目录<br> newPath | string |  | 是 | 新文件路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>FileSystemManager.renameSync(string oldPath, string newPath)FileSystemManager.rename 的同步版本</p>
+</li>
+<li><p>FileSystemManager.rmdir(Object object)删除目录</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明 | 最低版本<br> -|—-|—-|—–|—-|—-|—–<br> dirPath | string |  | 是 | 要删除的目录路径 |<br> recursive | boolean | false | 否 | 是否递归删除目录。如果为 true，则删除该目录和该目录下的所有子目录以及文件。 | 2.3.0<br> success | function |  | 否 | 接口调用成功的回调函数 |<br> fail | function |  | 否 | 接口调用失败的回调函数 |<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>FileSystemManager.rmdirSync(string dirPath, boolean recursive)FileSystemManager.rmdir 的同步版本</p>
+</li>
+<li><p>FileSystemManager.saveFile(Object object)保存临时文件到本地。此接口会移动临时文件，因此调用成功后，tempFilePath 将不可用。</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> tempFilePath | string |  | 是 | 临时存储文件路径<br> filePath | string |  | 否 | 要存储的文件路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数savedFilePath：存储后的文件路径</p>
+</li>
+<li><p>FileSystemManager.saveFileSync(string tempFilePath, string filePath)FileSystemManager.saveFile 的同步版本</p>
+</li>
+<li><p>FileSystemManager.stat(Object object)获取文件 Stats 对象</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明 | 最低版本<br> -|—-|—-|—–|—-|—-|—–<br> path | string |  | 是 | 文件/目录路径 |<br> recursive | boolean | false | 否 | 是否递归获取目录下的每个文件的 Stats 信息 | 2.3.0<br> success | function |  | 否 | 接口调用成功的回调函数 |<br> fail | function |  | 否 | 接口调用失败的回调函数 |<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+<p>object.success 回调函数参数stats：当 recursive 为 false 时，res.stats 是一个 Stats 对象。当 recursive 为 true 且 path 是一个目录的路径时，res.stats 是一个 Object，key 以 path 为根路径的相对路径，value 是该路径对应的 Stats 对象。</p>
+</li>
+<li><p>FileSystemManager.statSync(string path, boolean recursive)FileSystemManager.stat 的同步版本</p>
+</li>
+<li><p>FileSystemManager.unlink(Object object)删除文件</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 要删除的文件路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>FileSystemManager.unlinkSync(string filePath)FileSystemManager.unlink 的同步版本</p>
+</li>
+<li><p>FileSystemManager.unzip(Object object)解压文件</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> zipFilePath | string |  | 是 | 源文件路径，只可以是 zip 压缩文件<br> targetPath | string |  | 是 | 目标目录路径<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>FileSystemManager.writeFile(Object object)写文件</p>
+<p>参数<br> | 属性 | 类型 | 默认值 | 必填 | 说明<br> -|—-|—-|—–|—-|—<br> filePath | string |  | 是 | 要写入的文件路径<br> data | string/ArrayBuffer |  | 是 | 要写入的文本或二进制数据<br> encoding | string | utf8 | 否 | 指定写入文件的字符编码<br> success | function |  | 否 | 接口调用成功的回调函数<br> fail | function |  | 否 | 接口调用失败的回调函数<br> complete | function |  | 否 | 接口调用结束的回调函数（调用成功、失败都会执行）</p>
+</li>
+<li><p>FileSystemManager.writeFileSync(string filePath, string|ArrayBuffer data, string encoding)FileSystemManager.writeFile 的同步版本</p>
+</li>
+</ul>
+</li>
+<li><p>Stats</p>
+<p>描述文件状态的对象</p>
+<p> 属性</p>
+<ul>
+<li><p>string mode：文件的类型和存取的权限，对应 POSIX stat.st_mode</p>
+</li>
+<li><p>number size：文件大小，单位：B，对应 POSIX stat.st_size</p>
+</li>
+<li><p>number lastAccessedTime；文件最近一次被存取或被执行的时间，UNIX 时间戳，对应 POSIX stat.st_atime</p>
+</li>
+<li><p>number lastModifiedTime：文件最后一次被修改的时间，UNIX 时间戳，对应 POSIX stat.st_mtime</p>
+<p>方法</p>
+</li>
+<li><p>boolean Stats.isDirectory()：判断当前文件是否一个目录</p>
+</li>
+<li><p>boolean Stats.isFile()：判断当前文件是否一个普通文件</p>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/小程序/" rel="tag"># 小程序</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/08/初识小程序理论篇——06/" rel="next" title="初识小程序理论篇——06">
+                <i class="fa fa-chevron-left"></i> 初识小程序理论篇——06
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/15/fletter初探001/" rel="prev" title="fletter初探001">
+                fletter初探001 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="FallingLeaves">
+            
+              <p class="site-author-name" itemprop="name">FallingLeaves</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#初识小程序"><span class="nav-number">1.</span> <span class="nav-text">初识小程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件"><span class="nav-number">1.1.</span> <span class="nav-text">文件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">FallingLeaves</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div id="landlord">
+  <div class="message" style="opacity:0"></div>
+  <canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+  <div class="hide-button">隐藏</div>
+</div>
+<script type="text/javascript">
+  var message_Path = 'https://fallingleaves.github.io/'
+  var home_Path = 'https://fallingleaves.github.io/'
+</script>
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/live2d.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/message.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/my.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/love.js?v=5.1.4"></script>
+
+</body>
+</html>
